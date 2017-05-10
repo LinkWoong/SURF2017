@@ -1,15 +1,8 @@
-#! /usr/bin/env python
-"""
-Author: Jeremy M. Stober
-Program: __INIT__.PY
-Description: A simple SVM implementation.
-"""
-
 import numpy as np
 import numpy.random as npr
 import pylab
 from cvxopt import solvers, matrix
-from utils import plot_line # gist: https://gist.github.com/2778598
+from utils import plot_line 
 
 def svm_slack(pts, labels, c = 1.0):
     """
