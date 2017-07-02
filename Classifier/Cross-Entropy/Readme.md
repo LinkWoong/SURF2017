@@ -1,0 +1,1 @@
+[Cross-Entropy Cost Function](https://hit-scir.gitbooks.io/neural-networks-and-deep-learning-zh_cn/content/chap3/c3s1.html£©
