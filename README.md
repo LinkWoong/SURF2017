@@ -26,7 +26,7 @@ Edge detection based on **Kears** deep learning framework has been implemented, 
 <br>
 The performance is not bad, and for non-anime photo the output is  
 <br>
-<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result4.jpg" height=720 width=49% alt="Output test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result5.jpg" height=720 width=49% alt="Output test image">
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result4.jpg" height=600 width=98% alt="Output test image">
 
 <br>
 
