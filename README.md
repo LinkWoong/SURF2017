@@ -16,3 +16,17 @@ Our goal is to implement the neural style transfer by using [cycleGAN](https://a
 ## 2. Framework  
 
 Despite so many existing and well-performed deep learning frameworks (like caffe, chainer etc), our group chooses **Tensorflow** for its reliability and adaptability. 
+
+### Edge detection  
+
+Edge detection based on **Kears** deep learning framework has been implemented, and test image is  
+<br>
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=300 width=50% alt="Input test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result2.jpg" height=300 width=50% alt="Output test image">
+
+<br>
+The performance is not bad, and for non-anime photo the output is  
+<br>
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result3.jpg" height=300 width=50% alt="Output test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result4.jpg" height=300 width=50% alt="Output test image">
+
+<br>
+
