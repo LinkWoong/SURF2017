@@ -1,23 +1,18 @@
 import tensorflow as tf 
 import scipy.io
 import numpy as np 
-import cv2
 import os   
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
-
-path = '.'
-path_image = '.'
-input_image = cv2.imread(path_image)
-
+import encoder
 def weights(vgg_layer, layer, expected_layer):
 
     #load trained weights and bias from VGG_19
 
-	W = vgg_layer[0][layer][0][0][2][0][0]
-	b = vgg_layer[0][layer][0][0][2][0][1]
-
+	W = vgg_layer[0][0][layer][0][2][0][0]
+	b = vgg_layer[0][0][layer][0][2][0][1]
 	layer_name = vgg_layer[0][layer][0][0][0][0]
-	assert layer_name = expected_layer
+	assert layer_name == expected_layer
+	print W.shape,b.shape
 
 	return W, b.reshape(b.size)
 
@@ -29,7 +24,7 @@ def conv2d_relu(vgg, pre, layer, layer_name):
 		W, b = weights(vgg, layer, layer_name)
 		W = tf.constant(W, dtype=None, name='weights')
 		b = tf.constant(b, dtype=None, name='bias')
-		conv2d = tf.nn.conv2d(pre, filter=W, strides=[1,1,1,1], padding='SAME')
+		conv2d = tf.nn.conv2d(pre, filter=W, strides=[1,2,2,1], padding='SAME')
 
 	conv2d_activated = tf.nn.relu(conv2d+b)
 
@@ -51,7 +46,6 @@ def vgg_model(path, input_image):
     
 	vgg = scipy.io.loadmat(path)
 	vgg_layer = vgg['layers']
-     
     #dict is used instead of class
     #five convolution layers 
 	net={}
@@ -91,7 +85,7 @@ def fc_layer(vgg, net, layer, layer_name):
 	W = tf.constant(W, dtype=None, name='weights')
 	b = tf.constant(b ,dtype=None, name='bias')
 
-    fc = tf.nn.bias_add(tf.matmul(net['avg_pool5'], W) + b)
-    fc_softmax = tf.nn.softmax(fc, name='softmax')
+	fc = tf.nn.bias_add(tf.matmul(net['conv5_3'],W),b)
+	fc_softmax = tf.nn.softmax(fc, dim=-1,name='softmax')
 
-    return fc_softmax
+	return fc_softmax 
