@@ -11,7 +11,7 @@ This is a project of XJTLU 2017 Summer Undergraduate Research Fellowship, it aim
 
 <br>
 
-Our goal is to implement the neural style transfer by using [cycleGAN](https://arxiv.org/abs/1705.09966). 
+Our goal is to implement the neural style transfer by using [cycleGAN](https://arxiv.org/abs/1705.09966). At the same time, we also want to take one step further by using [CAN](https://arxiv.org/abs/1706.07068), which could generate image itself after a well-feed training process.
 
 ## 2. Framework  
 
