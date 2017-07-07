@@ -4,6 +4,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import encoder
 import vgg_model
 import cv2
+import numpy as np 
+import inspect 
 
 
 VGG = "/media/linkwong/D/imagenet-vgg-verydeep-19.mat"
@@ -16,9 +18,9 @@ if os.path.exists(VGG):
 else:
 
 	print "Failed to load VGG-19.mat"
-
+    
 input_image = cv2.imread(path)
-input_image = cv2.resize(input_image, (256,256), interpolation=cv2.INTER_AREA)
+input_image = cv2.resize(input_image, (256,256), interpolation=cv2.INTER_AREA).astype(np.float32)
 if os.path.exists(path):
 
 	print 'Image has been successfully loaded'
@@ -29,10 +31,14 @@ else:
 #cv2.imshow('dick',input_image)
 #cv2.waitKey() 
 #cv2.destroyAllWindows() 
+input_image[:,:,0] -= 103.939
+input_image[:,:,1] -= 116.779
+input_image[:,:,2] -= 123.68
+input_image = np.expand_dims(np.transpose(input_image,(1,0,2)),axis=0)
+
+print input_image.shape
 
 input_image_ten = tf.Variable(initial_value=input_image, dtype=tf.float32, trainable=False)
-input_image_ten = tf.reshape(input_image_ten,[256,256,3])
-input_image_ten = tf.expand_dims(input_image_ten,dim=3)
 
 with tf.Session() as sess:
 

@@ -12,18 +12,24 @@ def weights(vgg_layer, layer, expected_layer):
 	b = vgg_layer[0][0][layer][0][2][0][1]
 	layer_name = vgg_layer[0][layer][0][0][0][0]
 	assert layer_name == expected_layer
-	print W.shape,b.shape
+	W = tf.compat.as_bytes(W, encoding='utf-8')
+	W = tf.string_to_number(W, out_type=float32)
+	b = tf.compat.as_bytes(b, encoding='utf-8')
+	b = tf.string_to_number(b, out_type=float32)
 
-	return W, b.reshape(b.size)
+	return W,b
 
 def conv2d_relu(vgg, pre, layer, layer_name): 
+
 
 	# convolution 2d with Relu as activation function
  	with tf.variable_scope(layer_name) as scope:
 
 		W, b = weights(vgg, layer, layer_name)
-		W = tf.constant(W, dtype=None, name='weights')
-		b = tf.constant(b, dtype=None, name='bias')
+		with tf.Session() as sess:
+			sess.run(tf.global_variables_initializer())
+		#W = tf.Variable(W, dtype=tf.float32, name='weights')
+		#b = tf.Variable(b, dtype=tf.float32, name='bias')
 		conv2d = tf.nn.conv2d(pre, filter=W, strides=[1,2,2,1], padding='SAME')
 
 	conv2d_activated = tf.nn.relu(conv2d+b)
@@ -75,7 +81,10 @@ def vgg_model(path, input_image):
 	net['conv5_3'] = conv2d_relu(vgg_layer, net['conv5_2'], 32, 'conv5_3')
 	net['avg_pool5'] = average_pooling_layer(net['conv5_3'])
 
-	return net 
+	print net.values()
+
+
+	return net
 
 #fully convolution layer with softmax output
 
