@@ -4,13 +4,15 @@ import encoder
 import cv2
 import numpy as np 
 import VGG_Keras
+import keras
+
 from keras.models import Sequential
 from keras.layers.core import Flatten, Dense, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.optimizers import SGD
 
-
-VGG = "/media/linkwong/D/vgg19_weights_th_dim_ordering_th_kernels.h5"
+print keras.__version__
+VGG = "/media/linkwong/D/vgg19_weights.h5"
 path = "/home/linkwong/mingrixiang.jpg"
 
 if os.path.exists(VGG):
@@ -45,7 +47,7 @@ input_image = np.expand_dims(input_image, axis=0)
 
 print input_image.shape
 
-model = VGG_Keras.VGG_19(VGG)
+model = VGG_Keras.VGG_19('/media/linkwong/D/vgg19_weights.h5')
 sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(optimizer=sgd, loss='categorical_crossentropy')
 out = model.predict(input_image)
