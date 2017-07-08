@@ -1,14 +1,16 @@
-import tensorflow as tf 
 import os   
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import encoder
-import vgg_model
 import cv2
 import numpy as np 
-import inspect 
+import VGG_Keras
+from keras.models import Sequential
+from keras.layers.core import Flatten, Dense, Dropout
+from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
+from keras.optimizers import SGD
 
 
-VGG = "/media/linkwong/D/imagenet-vgg-verydeep-19.mat"
+VGG = "/media/linkwong/D/vgg19_weights_th_dim_ordering_th_kernels.h5"
 path = "/home/linkwong/mingrixiang.jpg"
 
 if os.path.exists(VGG):
@@ -20,7 +22,7 @@ else:
 	print "Failed to load VGG-19.mat"
     
 input_image = cv2.imread(path)
-input_image = cv2.resize(input_image, (256,256), interpolation=cv2.INTER_AREA).astype(np.float32)
+
 if os.path.exists(path):
 
 	print 'Image has been successfully loaded'
@@ -28,19 +30,24 @@ else:
 
 	print 'Failed to load image'
 
+input_image = cv2.resize(input_image, (256,256)).astype(np.float32)
+
+
 #cv2.imshow('dick',input_image)
 #cv2.waitKey() 
 #cv2.destroyAllWindows() 
 input_image[:,:,0] -= 103.939
 input_image[:,:,1] -= 116.779
 input_image[:,:,2] -= 123.68
-input_image = np.expand_dims(np.transpose(input_image,(1,0,2)),axis=0)
+
+input_image = input_image.transpose((2,0,1))
+input_image = np.expand_dims(input_image, axis=0)
 
 print input_image.shape
 
-input_image_ten = tf.Variable(initial_value=input_image, dtype=tf.float32, trainable=False)
+model = VGG_Keras.VGG_19(VGG)
+sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(optimizer=sgd, loss='categorical_crossentropy')
+out = model.predict(input_image)
 
-with tf.Session() as sess:
-
-	sess.run(tf.global_variables_initializer())
-	net = vgg_model.vgg_model(VGG, input_image_ten)
+print np.argmax(out)
