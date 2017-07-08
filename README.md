@@ -29,4 +29,8 @@ The performance is not bad, and for non-anime photo the output is
 <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result4.jpg" height=600 width=98% alt="Output test image">
 
 <br>
-There are more results released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement. 
+There are more results released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
+
+### VGG-19 Pretrained Very Deep Network
+
+This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download)
