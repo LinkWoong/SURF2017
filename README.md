@@ -39,9 +39,9 @@ This file is essential for the network, the download link could be viewed from [
 
 The first trial is using traditional neural style transfer, the model is pretrained VGG-19 network and there is no generator and discriminator. The network is just a simple CNN with 16 2d convolution layers, 5 average pooling layers and 3 fc layers. Obviously, when the iteration is 100, the output is crap. However, this crap cost me 1 hour to build with cpu i7-6700HQ.  
 <br>
-<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=512 width=49% alt="Input test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/starry_night.jpg" height=512 width=49% alt="Output test image">
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=500 width=49% alt="Input test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/starry_night.jpg" height=500 width=49% alt="Output test image">
 <br>
 The output is 
 <br>
-<img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/output.jpg" height=350 width=450 alt="Output test image">
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/output.jpg" height=500 width=500 alt="Output test image">
 <br>
