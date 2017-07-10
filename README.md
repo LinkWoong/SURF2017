@@ -45,3 +45,10 @@ The output is
 <br>
 <img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/output.jpg" height=500 width=500 alt="Output test image">
 <br>
+------------------------------------------
+Well, the second one seems better
+<br>
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/school/xjtlu.jpg" height=500 width=98% alt="Input test image"> 
+<img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/school/new_school.jpg" height=500 width=98% alt="Output test image">
+<br>
+This result is obtained from the network after 1000 iterations, and it is trained on 4 Titan GPUs. But I think this result is not comfortable. Development is still needed.
