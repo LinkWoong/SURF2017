@@ -36,7 +36,6 @@ There are more results released by using Keras framework, please see this [link]
 This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download)
 
 ## 3. Trials
-
 The first trial is using traditional neural style transfer, the model is pretrained VGG-19 network and there is no generator and discriminator. The network is just a simple CNN with 16 2d convolution layers, 5 average pooling layers and 3 fc layers. Obviously, when the iteration is 100, the output is crap. However, this crap cost me 1 hour to build with cpu i7-6700HQ.  
 <br>
 <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=500 width=49% alt="Input test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Network/starry_night.jpg" height=500 width=49% alt="Output test image">
