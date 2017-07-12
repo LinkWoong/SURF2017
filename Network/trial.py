@@ -1,7 +1,8 @@
 from __future__ import print_function
 from collections import defaultdict
 
-
+import os
+os.environ['KERAS_BACKEND']='theano'
 import cPickle as pickle 
 from PIL import Image
 from six.moves import range
@@ -23,7 +24,7 @@ import numpy as np
 
 np.random.seed(1337)
 
-K.set_image_dim_ordering('tf')
+K.set_image_dim_ordering('th')
 
 def generator(latent_size):
 
@@ -122,7 +123,7 @@ if __name__ == '__main__':
 	train_history = defaultdict(list)
 	test_history = defaultdict(list)
 
-	for epoch in epochs:
+	for epoch in range(epochs):
 		print('Epoch {} of {}'.format(epoch + 1, epochs))
 
 		batches = int(x_train.shape[0] / batch_size)
