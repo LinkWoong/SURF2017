@@ -3,24 +3,24 @@ from collections import defaultdict
 
 import os
 os.environ['KERAS_BACKEND']='theano'
-import cPickle as pickle 
+import cPickle as pickle
 from PIL import Image
 from six.moves import range
 import matplotlib.pyplot as plt
 
-import keras.backend as K 
-from keras.datasets import mnist 
+import keras.backend as K
+from keras.datasets import mnist
 from keras.layers import Input, Dense, Reshape, Flatten, Embedding
 from keras.layers import Dropout
-from keras.layers import merge 
+from keras.layers import merge
 from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.convolutional import UpSampling2D, Conv2D 
-from keras.models import Sequential, Model 
+from keras.layers.convolutional import UpSampling2D, Conv2D
+from keras.models import Sequential, Model
 from keras.optimizers import Adam
-from keras.utils.generic_utils import Progbar 
+from keras.utils.generic_utils import Progbar
 from keras.utils import plot_model
 
-import numpy as np 
+import numpy as np
 
 np.random.seed(1337)
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
 	latent = Input(shape=(latent_size, ))
 	image_class = Input(shape=(1,), dtype='int32')
-	
+
 	fake = generator([latent, image_class])
 
 	discriminator.trainable = False
@@ -180,7 +180,7 @@ if __name__ == '__main__':
 
 			trick = np.ones(2 * nb_test)
 
-			generator_test_loss = combined.evaluate([noise, sampled_labels.reshape((-1,1))], 
+			generator_test_loss = combined.evaluate([noise, sampled_labels.reshape((-1,1))],
 				[trick, sampled_labels], verbose=False)
 
 			generator_train_loss = np.mean(np.array(epoch_gen_loss), axis=0)
