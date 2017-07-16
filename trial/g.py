@@ -90,4 +90,4 @@ if __name__ == '__main__':
 
     end_image = end_image.reshape([512, 512, 3])
     plt.imshow(end_image)
-pylab.show()
+    pylab.show()
