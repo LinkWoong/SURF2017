@@ -29,7 +29,7 @@ def leakyrelu(x, leaky=0.2, name='leakyrelu'):
 
     return f1 * x + f2 * abs(x)
 
-def conv2d(inputconv, o_d=64, f_h=7, f_w=7, s_h=1, s_w=1, stddev=0.02, padding='VALID', name='conv2d', do_norm=True, do_relu=True, relufactor=0):
+def conv2d(inputconv, o_d=64, f_h=7, f_w=7, s_h=1, s_w=1, stddev=0.02, padding='SAME', name='conv2d', do_norm=True, do_relu=True, relufactor=0):
 
     with tf.variable_scope(name):
 
@@ -71,5 +71,18 @@ def deconv2d(inputconv, output, o_d=64, f_h=7, f_w=7, s_h=1, s_w=1, stddev=0.02,
                 conv = leakyrelu(conv, relufactor, 'leakyrelu')
 
         return conv
+
+def build_resnet_block(inputconv, dim, name='resnet'):
+
+    with tf.variable_scope(name):
+
+        out_res = tf.pad(inputconv, [[0, 0]. [1, 1], [1, 1], [0, 0]], 'REFLECT')
+        out_res = conv2d(out_res, dim, 3, 3, 1, 1, 0.02, 'VALID', 'c1')
+        out_res = tf.pad(out_res, [[0, 0], [1, 1], [1, 1], [0, 0]], 'REFLECT')
+        out_res = conv2d(out_res, dim, 3, 3, 1, 1,0.02, 'VALID', 'c2', do_relu=False)
+
+    return tf.nn.relu(out_res + inputconv)
+
+
 
 
