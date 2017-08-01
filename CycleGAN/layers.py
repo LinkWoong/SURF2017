@@ -27,11 +27,11 @@ def leakyrelu(x, leaky=0.2, name='leakyrelu'):
         f1 = 0.5 * (1 + leak)
         f2 = 0.5 * (1 - leak)
 
-        return f1 * x + f2 * abs(x)
+    return f1 * x + f2 * abs(x)
 
 def conv2d(inputconv, o_d=64, f_h=7, f_w=7, s_h=1, s_w=1, stddev=0.02, padding='VALID', name='conv2d', do_norm=True, do_relu=True, relufactor=0):
 
-    witht tf.variable_scope(name):
+    with tf.variable_scope(name):
 
         conv = tf.contrib.layers.conv2d(inputconv, o_d, f_w, s_w, padding, activation_fn=None, weights_initializer=tf.truncated_normal_initializer(stddev=stddev), biases_initializer=tf.constant_initializer(0.0))
 
