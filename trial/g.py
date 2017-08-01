@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from keras_vgg19 import VGG19
 import os   
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
@@ -61,9 +62,9 @@ def main_model():
     model = Model(inputs=[sketch, style], outputs=[front_decoder_output, end_decoder_output, network_output])
     # the ratio [1, 0.3, 0.9] is suggested in the paper
     model.compile(optimizer='sgd', loss={
-        'front_decoder_output': losses.mean_absolute_error,
-        'end_decoder_output': losses.mean_absolute_error,
-        'network_output': losses.mean_absolute_error
+        'front_decoder_output': losses.mean_absolute_error(gray_style,front_decoder_output),
+        'end_decoder_output': losses.mean_absolute_error(style,end_decoder_output),
+        'network_output': losses.mean_absolute_error(style_256, network_output)
     }, loss_weights=[1, 0.3, 0.9])
     # The true loss --- waited to be implemented
     # 'dense_1': losses.mean_absolute_error(gray_style, front_decoder_output),
