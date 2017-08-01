@@ -32,8 +32,16 @@ img_width = 256
 img_layer = 3
 img_size = img_height * img_width
 
-img_resize = tf.image.resize_images(img,[img_height, img_width], align_corners=False)
+features = 32
+
+img_resize = tf.image.resize_images(img,(img_height, img_width), align_corners=False)
 
 with tf.Session() as sess:
 
     print img_resize.shape
+
+    img_resize.set_shape((256,256,3))
+
+    o_c1 = conv2d(img_resize, 32, 7 ,7, 1, 1, 0.02, name='c1')
+
+
