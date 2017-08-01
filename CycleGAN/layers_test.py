@@ -42,6 +42,9 @@ with tf.Session() as sess:
 
     img_resize.set_shape((256,256,3))
 
-    o_c1 = conv2d(img_resize, 32, 7 ,7, 1, 1, 0.02, name='c1')
+    o_c1 = conv2d(img_resize, 64, 7 ,7, 1, 1, 0.02, name='c1')
+    o_c2 = conv2d(o_c1, 128, 3, 3, 2, 2, 0.02, name='c2')
+    o_enc_A = conv2d(o_c2, 256, 3, 3, 2, 2, 0.02, name='c3')
 
-
+    print o_c2.shape
+    print o_enc_A.shape
