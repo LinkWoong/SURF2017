@@ -24,12 +24,7 @@ Edge detection based on **Kears** deep learning framework has been implemented, 
 <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=512 width=49% alt="Input test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result2.jpg" height=512 width=49% alt="Output test image">
 
 <br>
-The performance is not bad, and for non-anime photo the output is  
-<br>
-<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result4.jpg" height=600 width=98% alt="Output test image">
-
-<br>
-There are more results released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
+There are more results have released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
 
 ### VGG-19 Pretrained Very Deep Network
 
