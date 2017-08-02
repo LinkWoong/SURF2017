@@ -119,8 +119,7 @@ class Test():
             for i in range(max_images):
 
                 image_tensor = sess.run(self.image_A)
-                print image_tensor.size()
-                if image_tensor.size() == img_size*batch_size*img_layer:
+                if len(image_tensor) == img_size*batch_size*img_layer:
 
                     self.A_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
 
@@ -128,10 +127,9 @@ class Test():
 
                 image_tensor = sess.run(self.image_B)
 
-                if (image_tensor.size() == img_size * batch_size * img_layer):
+                if  len(image_tensor) == img_size * batch_size * img_layer:
 
                     self.B_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
-
 
             coord.request_stop()
             coord.join(threads)
