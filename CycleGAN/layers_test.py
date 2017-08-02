@@ -134,9 +134,46 @@ class Test():
             coord.request_stop()
             coord.join(threads)
 
-    def preload():
+    def preload(self):
 
-        
+        self.input_A = tf.placeholder(tf.float32, [batch_size, img_height. img_width, img_layer], name='input_A')
+        self.input_B = tf.placeholder(tf.float32, [batch_size, img_height, img_width, img_layer], name='input_B')
+
+        self.fake_pool_A = tf.placeholder(tf.float32, [None, img_height, img_width, img_layer], name='fake_pool_A')
+        self.fake_pool_B = tf.placeholder(tf.float32, [None, img_height, img_width, img_layer], name='fake_pool_B')
+        self.global_step = tf.Variable(0, name='global_step', trainable=False)
+        self.num_fake_inputs = 0
+        self.lr = tf.placeholder(tf.float32, shape=[], name='lr')
+
+        with tf.variable_scope('Model') as scope:
+
+            self.fake_B = build_generator_resnet_9blocks(self.input_A, name='genA2B')
+            self.fake_A = build_generaotr_resnet_9blocks(self.input_B, name='genB2A')
+
+            self.judge_A = build_discriminator(self.input_A, name='disA')
+            self.judge_B = build_discriminator(self.input_B, name='disB')
+
+            scope.reuse_variables()
+
+            self.judge_fake_A = build_discriminator(self.fake_A, name='disFA')
+            self.judge_fake_B = build_discriminator(self.fake_B, name='disFB')
+            self.cyclic_A = build_generator_resnet_9blocks(self.fake_B, name='cyclic_A')
+            self.cyclic_B = build_generator_resnet_9blocks(self.fake_A, name='cyclic_B')
+
+            scope.reuse_variables()
+
+            self.judge_fake_A_pool = build_discriminator(self.judge_fake_A, name='poolFA')
+            self.judge_fake_B_pool = build_discriminator(self.judge_fake_B, name='poolFB')
+
+
+    def loss(self):
+
+
+
+
+
+
+
 
 
 
