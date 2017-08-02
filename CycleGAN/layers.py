@@ -84,7 +84,7 @@ def build_resnet_block(inputconv, dim, name='resnet'):
 
     with tf.variable_scope(name):
 
-        out_res = tf.pad(inputconv, [[0, 0]. [1, 1], [1, 1], [0, 0]], 'REFLECT')
+        out_res = tf.pad(inputconv, [[0, 0], [1, 1], [1, 1], [0, 0]], 'REFLECT')
         out_res = conv2d(out_res, dim, 3, 3, 1, 1, 0.02, 'VALID', 'c1')
         out_res = tf.pad(out_res, [[0, 0], [1, 1], [1, 1], [0, 0]], 'REFLECT')
         out_res = conv2d(out_res, dim, 3, 3, 1, 1,0.02, 'VALID', 'c2', do_relu=False)
@@ -147,8 +147,5 @@ def build_generator_resnet_9blocks(inputconv, name='generator'):
         output = tf.nn.tanh(o_c6, 't1')
 
     return output
-
-
-
 
 
