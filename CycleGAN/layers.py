@@ -148,4 +148,16 @@ def build_generator_resnet_9blocks(inputconv, name='generator'):
 
     return output
 
+def build_discriminator(inputconv, name='discriminator'):
+
+
+    with tf.variable_scope(name):
+
+        o_c1 = conv2d(inputconv, 64, 4, 4, 2, 2, 0.02, 'SAME', 'c1', do_norm=False, relufactor=0.2)
+        o_c2 = conv2d(o_c1, 64*2, 4, 4, 2, 2, 0.02, 'SAME', 'c2', relufactor=0.2)
+        o_c3 = conv2d(o_c2, 64*4, 4, 4, 2, 2, 0.02, 'SAME', 'c3', relufactor=0.2)
+        o_c4 = conv2d(o_c3, 64*8, 4, 4, 2, 2, 0.02, 'SAME', 'c4', relufactor=0.2)
+        o_c5 = conv2d(o_c4, 1, 4, 4, 2, 2, 0.02, 'SAME', 'c5', relufactor=0.2)
+
+    return o_c5
 

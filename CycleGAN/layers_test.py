@@ -134,6 +134,12 @@ class Test():
             coord.request_stop()
             coord.join(threads)
 
+    def preload():
+
+        
+
+
+
 
 
 
