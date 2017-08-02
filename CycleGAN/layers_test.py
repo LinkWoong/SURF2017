@@ -3,6 +3,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import numpy as np
 import tensorflow as tf
 from layers import *
+import random
+
 
 filename_queue = tf.train.string_input_producer(['/home/linkwong/SURF2017/acGAN-Implementation/mingrixiang.jpg'])
 
@@ -166,9 +168,28 @@ class Test():
             self.judge_fake_B_pool = build_discriminator(self.judge_fake_B, name='poolFB')
 
 
+
+    def fake_image_pool(self, num_fakes, fake, fake_pool):
+
+
+        if num_fakes < pool_size:
+
+            fake_pool[num_fakes] = fake
+
+            return fake
+        else:
+            if random.random() > 0.5:
+
+                random_id = random.randint(0, pool_size - 1)
+                temp = fake_pool[random_id]
+                fake_pool[random_id] = fake
+
+                return temp
+            else:
+
+                return fake
+
     def loss(self):
-
-
 
 
 
