@@ -3,6 +3,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
 
 
+img_height = 256
+img_width = 256
+img_layer = 3
+img_size = img_height * img_width
+
+batch_size = 1
+pool_size = 50
+
 
 def instance_norm(x):
 
@@ -82,6 +90,32 @@ def build_resnet_block(inputconv, dim, name='resnet'):
         out_res = conv2d(out_res, dim, 3, 3, 1, 1,0.02, 'VALID', 'c2', do_relu=False)
 
     return tf.nn.relu(out_res + inputconv)
+
+
+
+def build_generator_resnet_6blocks(inputconv, name='generator'):
+
+    with tf.variable_scope(name):
+
+        pad_input = tf.pad(inputconv, [[0, 0], [3, 3], [3, 3], [0, 0]], 'REFLECT')
+        o_c1 = conv2d(pad_input, 32, 7, 7, 1, 1, 0.02, name='c1')
+        o_c2 = conv2d(o_c1, 32*2, 7, 7, 2, 2, 0.02, 'SAME', 'c2')
+        o_c3 = conv2d(o_c2, 32*4, 7, 7, 2, 2, 0.02, 'SAME', 'c3')
+
+        o_r1 = build_resnet_block(o_c3, 32*4, 'r1')
+        o_r2 = build_resnet_block(o_r1, 32*4, 'r2')
+        o_r3 = build_resnet_block(o_r2, 32*4, 'r3')
+        o_r4 = build_resnet_block(o_r3, 32*4, 'r4')
+        o_r5 = build_resnet_block(o_r4, 32*4, 'r4')
+        o_r6 = build_resnet_block(o_r5, 32*4, 'r5')
+
+        o_c4 = deconv2d(o_r6,
+
+
+
+
+
+
 
 
 
