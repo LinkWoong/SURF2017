@@ -109,9 +109,15 @@ def build_generator_resnet_6blocks(inputconv, name='generator'):
         o_r5 = build_resnet_block(o_r4, 32*4, 'r4')
         o_r6 = build_resnet_block(o_r5, 32*4, 'r5')
 
-        o_c4 = deconv2d(o_r6,
+        o_c4 = deconv2d(o_r6, [batch_size, 64, 64, 32*2], 32*2, 7, 7, 2, 2, 0.02, 'SAME', 'c4')
+        o_c5 = deconv2d(o_c4, [batch_size, 128, 128, 32], 32, 7, 7, 2, 2, 0.02, 'SAME','c5')
+        o_c5_padding = tf.pad(o_c5, [[0, 0], [3, 3], [3, 3], [0, 0]], 'REFLECT')
+        o_c6 = conv2d(o_c5_padding, img_layer, 7, 7, 1, 1, 0.02, 'VALID','c6', do_relu=False)
 
 
+        output = tf.nn.tanh(o_c6, 't1')
+
+    return output
 
 
 
