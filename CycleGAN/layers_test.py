@@ -32,6 +32,12 @@ img_width = 256
 img_layer = 3
 img_size = img_height * img_width
 
+output_path = '/media/linkwong/File/CycleGAN'
+batch_size = 1
+pool_size = 50
+sample_size = 10
+max_images = 100
+
 features = 32
 
 img_resize = tf.image.resize_images(img,(img_height, img_width), align_corners=False)
@@ -48,3 +54,93 @@ with tf.Session() as sess:
 
     print o_c2.shape
     print o_enc_A.shape
+
+
+
+class Test():
+
+    def input_load(self):
+
+        directory_A = '/home/linkwong/SURF2017/acGAN-Implementation/mingrixiang.jpg'
+        directory_B = '/home/linkwong/SURF2017/CycleGAN/patterned_leaves.jpg'
+
+        filename_A = tf.train.match_filenames_once(directory_A)
+        filename_B = tf.train.match_filenames_once(directory_B)
+
+        self.queue_length_A = tf.size(filename_A)
+        self.queue_length_B = tf.size(filename_B)
+
+        init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
+
+        with tf.Session() as sess:
+
+            sess.run(init)
+
+            sess.run(filename_A)
+            sess.run(filename_B)
+
+            print sess.run(filename_A)
+            print sess.run(filename_B)
+
+        filename_queue_A = tf.train.string_input_producer(filename_A)
+        filename_queue_B = tf.train.string_input_producer(filename_B)
+
+        image_reader = tf.WholeFileReader()
+        _, image_file_A = image_reader.read(filename_queue_A)
+        _, image_file_B = image_reader.read(filename_queue_B)
+
+        self.image_A = tf.subtract(tf.div(tf.image.resize_images(tf.image.decode_jpeg(image_file_A), [256, 256]), 127.5), 1)
+        self.image_B = tf.subtract(tf.div(tf.image.resize_images(tf.image.decode_jpeg(image_file_B), [256, 256]), 127.5), 1)
+
+
+        # (256, 256, ?) with dynamic dimension
+    def input_test(self):
+
+        init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
+
+        with tf.Session() as sess:
+
+            sess.run(init)
+            coord = tf.train.Coordinator()
+            threads = tf.train.start_queue_runners(coord=coord)
+
+            num_files_A = sess.run(self.queue_length_A)
+            num_files_B = sess.run(self.queue_length_B)
+
+            print num_files_A
+            print num_files_B
+
+            self.fake_image_A = np.zeros((pool_size, 1, img_height, img_width, img_layer))
+            self.fake_image_B = np.zeros((pool_size, 1, img_height, img_width, img_layer))
+
+            self.A_input = np.zeros((max_images, batch_size, img_height, img_width, img_layer))
+            self.B_input = np.zeros((max_images, batch_size, img_height, img_width, img_layer))
+
+            for i in range(max_images):
+
+                image_tensor = sess.run(self.image_A)
+                print image_tensor.size()
+                if image_tensor.size() == img_size*batch_size*img_layer:
+
+                    self.A_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
+
+            for i in range(max_images):
+
+                image_tensor = sess.run(self.image_B)
+
+                if (image_tensor.size() == img_size * batch_size * img_layer):
+
+                    self.B_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
+
+
+            coord.request_stop()
+            coord.join(threads)
+
+
+
+
+
+
+model = Test()
+model.input_load()
+model.input_test()
