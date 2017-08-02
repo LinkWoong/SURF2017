@@ -120,7 +120,33 @@ def build_generator_resnet_6blocks(inputconv, name='generator'):
     return output
 
 
+def build_generator_resnet_9blocks(inputconv, name='generator'):
 
+    with tf.variable_scope(name):
+
+        pad_input = tf.pad(inputconv, [[0, 0], [3, 3], [3, 3], [0, 0]], 'REFLECT')
+        o_c1 = conv2d(pad_input, 32, 7, 7, 1, 1, 0.02,name='c1')
+        o_c2 = conv2d(o_c1, 32*2, 7, 7, 1, 1, 0.02,'SAME','c2')
+        o_c3 = conv2d(o_c2, 32*4, 7, 7, 1, 1, 0.02,'SAME','c3')
+
+        o_r1 = build_resnet_block(o_c3, 32*4, 'r1')
+        o_r2 = build_resnet_block(o_r1, 32*4, 'r2')
+        o_r3 = build_resnet_block(o_r2, 32*4, 'r3')
+        o_r4 = build_resnet_block(o_r3, 32*4, 'r4')
+        o_r5 = build_resnet_block(o_r4, 32*4, 'r5')
+        o_r6 = build_resnet_block(o_r5, 32*4, 'r6')
+        o_r7 = build_resnet_block(o_r6, 32*4, 'r7')
+        o_r8 = build_resnet_block(o_r7, 32*4, 'r8')
+        o_r9 = build_resnet_block(o_r8, 32*4, 'r9')
+
+        o_c4 = deconv2d(o_r9, [batch_size, 128, 128, 32*2], 32*2, 7, 7, 2, 2, 0.02, 'SAME', 'c4')
+        o_c5 = deconv2d(o_c4, [batch_size, 256, 256, 32], 32, 7, 7, 2, 2, 0.02, 'SAME', 'c5')
+        o_c6 = deconv2d(o_c5, img_layer, 7, 7, 1, 1, 0.02, 'SAME', 'c6', do_relu=False)
+
+
+        output = tf.nn.tanh(o_c6, 't1')
+
+    return output
 
 
 
