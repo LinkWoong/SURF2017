@@ -191,11 +191,29 @@ class Test():
 
     def loss(self):
 
+        loss_dis_A = tf.reduce_mean(tf.squared_difference(self.judge_fake_A, 1))
+        loss_dis_B = tf.reduce_mean(tf.squared_difference(self.judge_fake_B, 1))
 
+        cyc_loss = tf.reduce_mean(tf.abs(self.input_A - self.cyclic_A)) + tf.reduce_mean(tf.abs(self.input_B - self.cyclic_B))
 
+        loss_gen_A = cyc_loss * 10 + loss_dis_B
+        loss_gen_B = cyc_loss * 10 + loss_dis_A
 
+        loss_dis_A = (tf.reduce_mean(tf.square(self.judge_fake_A_pool)) + tf.reduce_mean(tf.squared_difference(self.judge_fake_A, 1))) / 2.0
+        loss_dis_B = (tf.reduce_mean(tf.square(self.judge_fake_B_pool)) + tf.reduce_mean(tf.squared_difference(self.judge_fake_B, 1))) / 2.0
 
+        optimizer = tf.train.AdamOptimizer(self.lr, beta1=0.5)
 
+        self.model_variables = tf.trainable_variables()
+
+        d_A = [i for i in self.model_variables if 'disA' in i.name]
+        g_A = [i for i in self.model_variables if 'genA2B' in i.name]
+        d_B = [i for i in self.model_variables if 'disB' in i.name]
+        g_B = [i for i in self.model_variables if 'genB2A' in i.name]
+
+        for i in self.model_variables:
+
+            print i.name
 
 
 
