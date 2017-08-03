@@ -39,6 +39,11 @@ batch_size = 1
 pool_size = 50
 sample_size = 10
 max_images = 100
+save_training_images = True
+to_train = True
+to_test = False
+to_restore = False
+
 
 features = 32
 
@@ -194,6 +199,12 @@ class Test():
         d_B = [i for i in self.model_variables if 'disB' in i.name]
         g_B = [i for i in self.model_variables if 'genB2A' in i.name]
 
+        self.d_A_trainer = optimizer.minimize(loss_dis_A, var_list=d_A)
+        self.d_B_trainer = optimizer.minimize(loss_dis_B, var_list=d_B)
+        self.g_A_trainer = optimizer.minimize(loss_gen_A, var_list=g_A)
+        self.g_B_trainer = optimizer.minimize(loss_gen_B, var_list=g_B)
+
+
         for i in self.model_variables:
 
             print i.name
@@ -221,11 +232,62 @@ class Test():
 
         self.loss()
 
-        init = tf.global_variables_initializer()
+        init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
         saver = tf.train.Saver()
 
-        with tf.
+        with tf.Session() as sess:
 
-model = Test()
-model.input_load()
-model.input_test()
+            sess.run(init)
+            self.input_test(sess)
+
+            check_dir = '/media/linkwong/File/CycleGAN/checkpoints'
+
+            if not os.path.exists(check_dir):
+                os.makedirs(check_dir)
+
+            for epoch in range(sess.run(self.global_step), 100):
+
+                print "In the epoch: {0}".format(epoch)
+
+                saver.save(sess, check_dir, global_step=epoch)
+
+                if(epoch < 100):
+
+                    curr_lr = 0.0002
+                else:
+
+                    curr_lr = 0.0002 - 0.0002*(epoch-100)/100
+
+                if(save_training_images):
+
+                    self.save(sess,epoch)
+
+                for link in range(0, max_images):
+
+                    print 'In the Iteration:{0}'.format(link)
+                    print 'Starting at :{0}'.format(time.time()*1000.0)
+
+                    #generator A2B
+                    _, fake_B_temp = sess.run([self.g_A_trainer, self.fake_B], feed_dict={self.input_A:self.A_input[link], self.input_B:self.B_input[link], self.lr:curr_lr})
+
+                    fake_B_temp_pool = self.fake_image_pool(self.num_fake_inputs, fake_B_temp, self.fake_image_B)
+
+                    #discriminator B
+
+                    _, = sess.run([self.d_B_trainer], feed_dict={self.input_A:self.A_input[link], self.input_B:self.B_input[link], slf.lr:curr_lr})
+
+                    #generator B2A
+
+                    _, fake_A_temp = sess.run([self.g_B_trainer, self.fake_A], feed_dict={self.input_A:self.A_input[link], self.input_B:self.B_input[link], self.lr:curr_lr})
+
+                    fake_A_temp_pool = self.fake_image_pool(self.num_fake_inputs, fake_A_temp, self.fake_image_A)
+
+                    #discriminator B
+
+                    _, = sess.run([self.d_A_trainer], feed_dict={self.input_A:self.A_input[link], self.input_B:self.B_input[link], self.lr:curr_lr})
+
+                    self.num_fake_inputs += 1
+
+                sess.run(tf.assign(self.global_step, epoch + 1))
+
+
