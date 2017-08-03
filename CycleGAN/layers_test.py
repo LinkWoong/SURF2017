@@ -72,18 +72,6 @@ class Test():
         self.queue_length_A = tf.size(filename_A)
         self.queue_length_B = tf.size(filename_B)
 
-        init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
-
-        with tf.Session() as sess:
-
-            sess.run(init)
-
-            sess.run(filename_A)
-            sess.run(filename_B)
-
-            print sess.run(filename_A)
-            print sess.run(filename_B)
-
         filename_queue_A = tf.train.string_input_producer(filename_A)
         filename_queue_B = tf.train.string_input_producer(filename_B)
 
@@ -96,45 +84,40 @@ class Test():
 
 
         # (256, 256, ?) with dynamic dimension
-    def input_test(self):
+    def input_test(self,sess):
 
-        init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
+        coord = tf.train.Coordinator()
+        threads = tf.train.start_queue_runners(coord=coord)
 
-        with tf.Session() as sess:
+        num_files_A = sess.run(self.queue_length_A)
+        num_files_B = sess.run(self.queue_length_B)
 
-            sess.run(init)
-            coord = tf.train.Coordinator()
-            threads = tf.train.start_queue_runners(coord=coord)
+        print num_files_A
+        print num_files_B
 
-            num_files_A = sess.run(self.queue_length_A)
-            num_files_B = sess.run(self.queue_length_B)
+        self.fake_image_A = np.zeros((pool_size, 1, img_height, img_width, img_layer))
+        self.fake_image_B = np.zeros((pool_size, 1, img_height, img_width, img_layer))
 
-            print num_files_A
-            print num_files_B
+        self.A_input = np.zeros((max_images, batch_size, img_height, img_width, img_layer))
+        self.B_input = np.zeros((max_images, batch_size, img_height, img_width, img_layer))
 
-            self.fake_image_A = np.zeros((pool_size, 1, img_height, img_width, img_layer))
-            self.fake_image_B = np.zeros((pool_size, 1, img_height, img_width, img_layer))
+        for i in range(max_images):
 
-            self.A_input = np.zeros((max_images, batch_size, img_height, img_width, img_layer))
-            self.B_input = np.zeros((max_images, batch_size, img_height, img_width, img_layer))
+            image_tensor = sess.run(self.image_A)
+            if len(image_tensor) == img_size*batch_size*img_layer:
 
-            for i in range(max_images):
+                self.A_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
 
-                image_tensor = sess.run(self.image_A)
-                if len(image_tensor) == img_size*batch_size*img_layer:
+        for i in range(max_images):
 
-                    self.A_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
+            image_tensor = sess.run(self.image_B)
 
-            for i in range(max_images):
+            if len(image_tensor) == img_size * batch_size * img_layer:
 
-                image_tensor = sess.run(self.image_B)
+                self.B_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
 
-                if  len(image_tensor) == img_size * batch_size * img_layer:
-
-                    self.B_input[i] = image_tensor.reshape((batch_size, img_height, img_width, img_layer))
-
-            coord.request_stop()
-            coord.join(threads)
+        coord.request_stop()
+        coord.join(threads)
 
     def preload(self):
 
@@ -231,7 +214,17 @@ class Test():
             imsave('/media/linkwong/File/CycleGAN/saves/inputB_' + str(epoch) + '_' + str(i) + '.jpg', ((self.input_B[i][0] +1) * 127.5).astype(np.uint8))
 
 
+    def train_model(self):
 
+        self.input_load()
+        self.preload()
+
+        self.loss()
+
+        init = tf.global_variables_initializer()
+        saver = tf.train.Saver()
+
+        with tf.
 
 model = Test()
 model.input_load()
