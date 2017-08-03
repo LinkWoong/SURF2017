@@ -215,8 +215,20 @@ class Test():
 
             print i.name
 
+    def save(self, sess, epoch):
 
+        if not os.path.exists('/media/linkwong/File/CycleGAN/saves'):
 
+            os.makedirs('/media/linkwong/File/CycleGAN/saves')
+        for i in range(0, 10):
+
+            fake_A_temp, fake_B_temp, cyclic_A_temp, cyclic_B_temp = sess.run([self.fake_A, self.fake_B, self.cyclic_A, self.cyclic_B], feed_dict={self.input_A:self.input_A[i], self.input_B:self.input_B[i]})
+            imsave('/media/linkwong/File/CycleGAN/saves/fakeB_' + str(epoch) + '_' + str(i) + '.jpg', ((fake_A_temp[0] +1) * 127.5).astype(np.uint8))
+            imsave('/media/linkwong/File/CycleGAN/saves/fakeA_' + str(epoch) + '_' + str(i) + '.jpg', ((fake_B_temp[0] +1) * 127.5).astype(np.uint8))
+            imsave('/media/linkwong/File/CycleGAN/saves/cycA_' + str(epoch) + '_' + str(i) + '.jpg', ((cyclic_A_temp[0] +1) * 127.5).astype(np.uint8))
+            imsave('/media/linkwong/File/CycleGAN/saves/cycB_' + str(epoch) + '_' + str(i) + '.jpg',((cyclic_B_temp[0] +1) * 127.5).astype(np.uint8))
+            imsave('/media/linkwong/File/CycleGAN/saves/inputA_' + str(epoch) + '_' + str(i) + '.jpg', ((self.input_A[i][0] +1) * 127.5).astype(np.uint8))
+            imsave('/media/linkwong/File/CycleGAN/saves/inputB_' + str(epoch) + '_' + str(i) + '.jpg', ((self.input_B[i][0] +1) * 127.5).astype(np.uint8))
 
 
 
