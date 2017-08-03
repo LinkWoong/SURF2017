@@ -45,12 +45,6 @@ class CycleGAN():
 
     def input_setup(self):
 
-        ''' 
-        This function basically setup variables for taking image input.
-
-        filenames_A/filenames_B -> takes the list of all training images
-        self.image_A/self.image_B -> Input image with each values ranging from [-1,1]
-        '''
         
         filenames_A = tf.train.match_filenames_once("./input/trainA/*.jpg")    
         self.queue_length_A = tf.size(filenames_A)
@@ -71,15 +65,6 @@ class CycleGAN():
 
     def input_read(self, sess):
 
-
-        '''
-        It reads the input into from the image folder.
-
-        self.fake_images_A/self.fake_images_B -> List of generated images used for calculation of loss function of Discriminator
-        self.A_input/self.B_input -> Stores all the training images in python list
-        '''
-
-        # Loading images into the tensors
         coord = tf.train.Coordinator()
         threads = tf.train.start_queue_runners(coord=coord)
 
@@ -111,14 +96,6 @@ class CycleGAN():
 
 
     def model_setup(self):
-
-        ''' This function sets up the model to train
-
-        self.input_A/self.input_B -> Set of training images.
-        self.fake_A/self.fake_B -> Generated images by corresponding generator of input_A and input_B
-        self.lr -> Learning rate variable
-        self.cyc_A/ self.cyc_B -> Images generated after feeding self.fake_A/self.fake_B to corresponding generator. This is use to calcualte cyclic loss
-        '''
 
         self.input_A = tf.placeholder(tf.float32, [batch_size, img_width, img_height, img_layer], name="input_A")
         self.input_B = tf.placeholder(tf.float32, [batch_size, img_width, img_height, img_layer], name="input_B")
@@ -152,12 +129,6 @@ class CycleGAN():
 
     def loss_calc(self):
 
-        ''' In this function we are defining the variables for loss calcultions and traning model
-
-        d_loss_A/d_loss_B -> loss for discriminator A/B
-        g_loss_A/g_loss_B -> loss for generator A/B
-        *_trainer -> Variaous trainer for above loss functions
-        *_summ -> Summary variables for above loss functions'''
 
         cyc_loss = tf.reduce_mean(tf.abs(self.input_A-self.cyc_A)) + tf.reduce_mean(tf.abs(self.input_B-self.cyc_B))
         
@@ -209,9 +180,6 @@ class CycleGAN():
             imsave("./output/imgs/inputB_"+ str(epoch) + "_" + str(i)+".jpg",((self.B_input[i][0]+1)*127.5).astype(np.uint8))
 
     def fake_image_pool(self, num_fakes, fake, fake_pool):
-        ''' This function saves the generated image to corresponding pool of images.
-        In starting. It keeps on feeling the pool till it is full and then randomly selects an
-        already stored image and replace it with new one.'''
 
         if(num_fakes < pool_size):
             fake_pool[num_fakes] = fake
@@ -229,27 +197,19 @@ class CycleGAN():
 
     def train(self):
 
-        ''' Training Function '''
-        # Load Dataset from the dataset folder
         self.input_setup()  
-
-        #Build the network
         self.model_setup()
 
-        #Loss function calculations
         self.loss_calc()
       
-        # Initializing the global variables
         init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
         saver = tf.train.Saver()     
 
         with tf.Session() as sess:
             sess.run(init)
 
-            #Read input to nd array
             self.input_read(sess)
 
-            #Restore the model to run the model from last checkpoint
             if to_restore:
                 chkpt_fname = tf.train.latest_checkpoint(check_dir)
                 saver.restore(sess, chkpt_fname)
@@ -259,12 +219,9 @@ class CycleGAN():
             if not os.path.exists(check_dir):
                 os.makedirs(check_dir)
 
-            # Training Loop
             for epoch in range(sess.run(self.global_step),100):                
                 print ("In the epoch ", epoch)
                 saver.save(sess,os.path.join(check_dir,"cyclegan"),global_step=epoch)
-
-                # Dealing with the learning rate as per the epoch number
                 if(epoch < 100) :
                     curr_lr = 0.0002
                 else:
@@ -272,8 +229,6 @@ class CycleGAN():
 
                 if(save_training_images):
                     self.save_training_images(sess, epoch)
-
-                # sys.exit()
 
                 for ptr in range(0,max_images):
                     print("In the iteration ",ptr)
@@ -314,8 +269,6 @@ class CycleGAN():
 
     def test(self):
 
-
-        ''' Testing Function'''
 
         print("Testing the results")
 
