@@ -10,9 +10,7 @@ import time
 import random
 import sys
 
-
 from layers import *
-
 
 img_height = 256
 img_width = 256
@@ -53,7 +51,7 @@ class CycleGAN():
         
         filename_queue_A = tf.train.string_input_producer(filenames_A)
         filename_queue_B = tf.train.string_input_producer(filenames_B)
-
+        
         image_reader = tf.WholeFileReader()
         _, image_file_A = image_reader.read(filename_queue_A)
         _, image_file_B = image_reader.read(filename_queue_B)
@@ -110,6 +108,7 @@ class CycleGAN():
         self.lr = tf.placeholder(tf.float32, shape=[], name="lr")
 
         with tf.variable_scope("Model") as scope:
+            
             self.fake_B = build_generator_resnet_9blocks(self.input_A, name="g_A")
             self.fake_A = build_generator_resnet_9blocks(self.input_B, name="g_B")
             self.rec_A = build_discriminator(self.input_A, "d_A")
