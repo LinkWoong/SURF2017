@@ -33,9 +33,6 @@ This file is essential for the network, the download link could be viewed from [
 ## 3. Some trials  
 -------------------------------------------------
 + The first trial is using traditional neural style transfer, the model is pretrained VGG-19 network and there is no generator and discriminator. The network is just a simple CNN with 16 2d convolution layers, 5 average pooling layers and 3 fc layers. Obviously, when the iteration is 100, the output is crap. However, this crap cost me 1 hour to build with cpu i7-6700HQ.  
-
-<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=400 width=48% alt="Input test image"> <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/starry_night.jpg" height=400 width=48% alt="Output test image">  
-
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/output.jpg" height=400 width=400 alt="Output test image">
 <br>
 Well, the second one seems better
