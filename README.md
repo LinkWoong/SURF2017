@@ -28,14 +28,12 @@ There are more results have released by using Keras framework, please see this [
 
 ### VGG-19 Pretrained Very Deep Network
 
-This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download)
+This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download).The VGG19 is a pretrained very deep ConvNets that could be used directly. Similar pretrained models such as Resnet, VGG16 will be tested.
 
 ## 3. Some trials  
 -------------------------------------------------
-+ The first trial is using traditional neural style transfer, the model is pretrained VGG-19 network and there is no generator and discriminator. The network is just a simple CNN with 16 2d convolution layers, 5 average pooling layers and 3 fc layers. Obviously, when the iteration is 100, the output is crap. However, this crap cost me 1 hour to build with cpu i7-6700HQ.  
-<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/output.jpg" height=400 width=400 alt="Output test image">
-<br>
-Well, the second one seems better
++ The first trial is using traditional neural style transfer.
+
 <br>
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/school/xjtlu.jpg" height=500 width=98% alt="Input test image"> 
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/school/new_school.jpg" height=500 width=98% alt="Output test image">
