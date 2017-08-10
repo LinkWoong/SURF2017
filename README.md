@@ -39,6 +39,6 @@ This file is essential for the network, the download link could be viewed from [
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/school/new_school.jpg" height=500 width=98% alt="Output test image">
 <br>
 This result is obtained from the network after 1000 iterations, and it is trained on 4 Titan GPUs. But I think this result is not comfortable. Development and investigation are still needed. Until now, we've tested the CycleGAN and acGAN. However, the results are not good.  
-I'll rewrite the codes for GAN in the following days, and our training sets have been updated to single anime character with high resolution.<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/CycleGAN/trainA/2294198.jpeg" height=300 width=400 alt="test">
+I'll rewrite the codes for GAN in the following days, and our training sets have been updated to single anime character with high resolution.<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/CycleGAN/trainA/2294198.jpeg" height=800 width=60% alt="test">
 <br>
 
