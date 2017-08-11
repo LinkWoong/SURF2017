@@ -39,7 +39,7 @@ else:
 	image_initial = cv2.resize(image_initial,(512,512), interpolation=cv2.INTER_AREA)
 	new_width = 512
 	new_height = 512
-cv2.imshow('raw',image_initial)
+
 print image_initial.shape
 
 image_initial = image_initial.transpose((2,0,1))
