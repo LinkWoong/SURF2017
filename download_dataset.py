@@ -1,12 +1,8 @@
-#!/usr/bin/env python3
-
-import requests, os, bs4
-
 """ Safebooru Downloader 
 Downloads all images available of selected tags from http://safebooru.org/
 Author: toashel @ http://github.com/toashel 
 """
-
+import requests, os, bs4
 def download_image(url, directory):
 	'''Save an image from a URL to a new directory.'''
 	url = 'https:' + url

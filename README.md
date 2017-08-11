@@ -28,14 +28,18 @@ There are more results have released by using Keras framework, please see this [
 
 ### VGG-19 Pretrained Very Deep Network
 
-This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download)
+This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download).The VGG19 is a pretrained very deep ConvNets that could be used directly. Similar pretrained models such as Resnet, VGG16 will be tested.
 
 ## 3. Some trials  
 -------------------------------------------------
-+ The first trial is using traditional neural style transfer, the model uses VGG-19 pretrained network.
- 
++ The first trial is using traditional neural style transfer.
+
 <br>
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/school/xjtlu.jpg" height=500 width=98% alt="Input test image"> 
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/school/new_school.jpg" height=500 width=98% alt="Output test image">
 <br>
-This result is obtained from the network after 1000 iterations, and it is trained on 4 Titan GPUs. But I think this result is not comfortable. Development and investigation are still needed.
+This result is obtained from the network after 1000 iterations, and it is trained on 4 Titan GPUs. But I think this result is not comfortable. Development and investigation are still needed. Until now, we've tested the CycleGAN and acGAN. However, the results are not good.  
+I'll rewrite the codes for GAN in the following days, and our training sets have been updated to single anime character with high resolution.<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/CycleGAN/trainA/2294198.jpeg" height=800 width=60% alt="test">
+<br>
+The background and the girl will be colored separately.
+
