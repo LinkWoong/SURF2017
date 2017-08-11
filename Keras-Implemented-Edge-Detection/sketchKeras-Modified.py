@@ -56,10 +56,10 @@ line_mat = mod.predict(light_map, batch_size=1)
 line_mat = line_mat.transpose((3,1,2,0))[0]
 line_mat = line_mat[0:int(new_height), 0:int(new_width),:]
 
-show_active_img_and_save('sketchKeras_colored', line_mat,'/home/linkwong/Desktop/sketchKeras_colored.jpg')
+show_active_img_and_save('sketchKeras_colored', line_mat,'/home/linkwong/Desktop/sketchKeras_colored1.jpg')
 line_mat = np.amax(line_mat,2)
-show_active_img_and_save_denoise_filter2('sketchKeras_enhanced',line_mat,'/home/linkwong/Desktop/sketchKeras_colored.jpg')
-show_active_img_and_save_denoise_filter('sketchKeras_pured',line_mat,'/home/linkwong/Desktop/sketchKeras_colored.jpg')
+show_active_img_and_save_denoise_filter2('sketchKeras_enhanced',line_mat,'/home/linkwong/Desktop/sketchKeras_colored2.jpg')
+show_active_img_and_save_denoise_filter('sketchKeras_pured',line_mat,'/home/linkwong/Desktop/sketchKeras_colored3.jpg')
 cv2.waitKey(0)
 
 
