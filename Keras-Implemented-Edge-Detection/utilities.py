@@ -1,3 +1,6 @@
+import cv2
+import numpy as np 
+from scipy import ndimage
 def normal_map(image):
 	image = image.astype(np.float)
 	image = image / 255.0
@@ -5,9 +8,6 @@ def normal_map(image):
 	image[image < 0] = 0
 	image[image > 1] = 1
 
-	cv2.imshow('dick',image)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
 
 	return image
 
@@ -34,9 +34,6 @@ def light_map(image):
 	highpass = highpass / 128.0
 	highpass = highpass[None]
 
-	cv2.imshow('dick',blur)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
 
 	return highpass.transpose((1,2,0))
 
@@ -51,9 +48,6 @@ def light_map_single(image):
 	highpass = highpass.astype(np.float)
 	highpass = highpass / 128.0
 
-	cv2.imshow('dick',blur)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
 
 	return highpass
 
@@ -76,11 +70,6 @@ def superlize_pic(image):
 	image = image * 2.333333
 	image[image > 1] = 1
 
-	cv2.imshow('dick',image)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
-
-	print image 
 	return image
 def resize_img(image):
 
@@ -100,9 +89,6 @@ def show_active_img_and_save(name,image,path):
 
 	mat = mat.astype(np.uint8)
 
-	cv2.imshow(name,mat)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
 	cv2.imwrite(path,mat)
 
 	return image
@@ -119,9 +105,7 @@ def show_active_img_and_save_denoise(name,image,path):
 	mat = mat.astype(np.uint8)
 	mat = ndimage.median_filter(mat,1)
 
-	cv2.imshow(name,mat)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+
 	cv2.imwrite(path,mat)
 
 	return image
@@ -135,7 +119,7 @@ def show_active_img_and_save_denoise_filter(name,image,path):
 	mat = mat.astype(np.uint8)
 
 	mat = ndimage.median_filter(mat,1)
-	cv2.imshow(name,mat)
+
 	cv2.imwrite(path,mat)
 
 	return mat
@@ -151,7 +135,7 @@ def show_active_img_and_save_denoise_filter2(name,image,path):
 	mat = mat.astype(np.uint8)
 
 	mat = ndimage.median_filter(mat,1)
-	cv2.imshow(name,mat)
+
 	cv2.imwrite(path,mat)
 
 	return mat
