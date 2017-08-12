@@ -38,13 +38,17 @@ if content_to_sketch:
 		images[i] = images[i].transpose((2, 0, 1))
 
 		light_map = np.zeros(images[i].shape, dtype=np.float)
-		
+
 		for j in range(3):
-			light_map[i] = light_map_single(images[j])
+			light_map[i] = light_map_single(images[i][j])
 		light_map = normalize_pic(light_map)
 		light_map = resize_img_512_3d(light_map)
 
 		line_mat = mod.predict(light_map, batch_size=1)
 		line_mat = line_mat.transpose((3, 1, 2, 0))[0]
 		line_mat = line_mat[0:int(height), 0:int(width), :]
+
+		show_active_img_and_save('sketches', line_mat, '/media/linkwong/D' + str(i) + '.jpeg')
+		line_mat = np.amax(line_mat, 2)
 		show_active_img_and_save_denoise_filter2('sketches', line_mat, '/media/linkwong/D/1girl/temp/sketch/sketched_' + str(i) + '.jpeg')
+		show_active_img_and_save_denoise_filter('sketches', line_mat, '/media/linkwong/D' + str(i) + '.jpeg')
