@@ -1,13 +1,26 @@
 import cv2
 from scipy import ndimage
-from skimage import io
 import numpy as np 
-import io
 import os 
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import pandas as pd 
 from keras.models import load_model
 import tensorflow as tf 
+
+
+def resize(image):
+
+    image = cv2.resize(image, (512, 512), interpolation=cv2.INTER_AREA)
+    return image
+def load_image(path):
+
+    images = []
+    for filename in os.listdir(path):
+        img = cv2.imread(os.path.join(path, filename))
+        if img is not None:
+
+            images.append(img)
+    return images
 
 def light_map_single(image):
 
@@ -98,4 +111,3 @@ def resize_img_512_3d(img):
     zeros = np.zeros((1,3,512,512), dtype=np.float)
     zeros[0 , 0 : img.shape[0] , 0 : img.shape[1] , 0 : img.shape[2]] = img
     return zeros.transpose((1,2,3,0))
-
