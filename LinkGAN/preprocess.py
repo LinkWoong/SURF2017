@@ -40,7 +40,7 @@ if content_to_sketch:
 		light_map = np.zeros(images[i].shape, dtype=np.float)
 
 		for j in range(3):
-			light_map[i] = light_map_single(images[i][j])
+			light_map[j] = light_map_single(images[i][j])
 		light_map = normalize_pic(light_map)
 		light_map = resize_img_512_3d(light_map)
 
