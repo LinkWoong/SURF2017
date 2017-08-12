@@ -20,3 +20,5 @@ content_path, sketch_path = preprocess(path, mod_path, content_to_sketch)
 
 print content_path
 print sketch_path
+
+
