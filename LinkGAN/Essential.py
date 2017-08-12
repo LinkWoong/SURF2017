@@ -102,7 +102,9 @@ def show_active_img_and_save_denoise_filter2(name,image,path):
     mat = mat.astype(np.uint8)
 
     mat = ndimage.median_filter(mat,1)
-
+    if not os.path.exists(path):
+        os.makedirs(path)
+    
     cv2.imwrite(path,mat)
 
     return mat
