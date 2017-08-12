@@ -54,10 +54,10 @@ def preprocess(image_path, mod_path, content_to_sketch):
 			show_active_img_and_save('sketches', line_mat, './' + str(i) + '.jpeg')
 			line_mat = np.amax(line_mat, 2)
 
-			show_active_img_and_save_denoise_filter2('sketches', line_mat, new_path + '/sketch/sketched_' + str(i) + '.jpeg')
+			show_active_img_and_save_denoise_filter2('sketches', line_mat, new_path, i)
 			show_active_img_and_save_denoise_filter('sketches', line_mat, './' + str(i) + '.jpeg')
 
 			sketch_path = new_path + '/sketch'
 			content_path = new_path
 
-			return content_path, sketch_path
+	return content_path, sketch_path

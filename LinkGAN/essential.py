@@ -92,7 +92,9 @@ def show_active_img_and_save_denoise_filter(name,image,path):
     return mat
 
 
-def show_active_img_and_save_denoise_filter2(name,image,path):
+def show_active_img_and_save_denoise_filter2(name,image,path, i):
+
+    path = path + '/sketch'
     mat = image.astype(np.float)
     mat[mat<0.1] = 0
     mat = -mat + 1
@@ -104,7 +106,7 @@ def show_active_img_and_save_denoise_filter2(name,image,path):
     mat = ndimage.median_filter(mat,1)
     if not os.path.exists(path):
         os.makedirs(path)
-    
+    path = path + '/sketched_' + str(i) + '.jpeg'
     cv2.imwrite(path,mat)
 
     return mat
