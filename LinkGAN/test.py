@@ -31,19 +31,20 @@ output_partition_graphs = True
 start_train = True
 start_test = True
 
-
 content_path, sketch_path = preprocess(path, mod_path, content_to_sketch)
 
 print content_path
 print sketch_path
 
+style_path = '/media/linkwong/D/1girl/2294199.png'
+
+
 class link():
 
-	def setup(self, content_path, sketch_path, global_step):
+	def setup(self, content_path, sketch_path, style_path, global_step):
 
 		self.global_step = global_step
 		filename_content = tf.train.string_input_producer(tf.train.match_filenames_once(content_path + '/*.jpeg'))
 		filename_sketch = tf.train.string_input_producer(tf.train.match_filenames_once(sketch_path + '/*.jpeg'))
-		
-
-		
+                
+                reader = tf.WholeFileReader())

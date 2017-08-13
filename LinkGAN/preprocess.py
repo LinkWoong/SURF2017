@@ -59,5 +59,9 @@ def preprocess(image_path, mod_path, content_to_sketch):
 
 			sketch_path = new_path + '/sketch'
 			content_path = new_path
+	else:
+
+		content_path = new_path
+		sketch_path = None
 
 	return content_path, sketch_path
