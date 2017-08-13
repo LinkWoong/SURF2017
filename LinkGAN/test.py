@@ -46,5 +46,6 @@ class link():
 		self.global_step = global_step
 		filename_content = tf.train.string_input_producer(tf.train.match_filenames_once(content_path + '/*.jpeg'))
 		filename_sketch = tf.train.string_input_producer(tf.train.match_filenames_once(sketch_path + '/*.jpeg'))
-                
-                reader = tf.WholeFileReader())
+
+		reader = tf.WholeFileReader()
+		
