@@ -45,9 +45,18 @@ class link():
 
 		self.global_step = global_step
 
-		self.filename_content = tf.train.string_input_producer(tf.train.match_filenames_once(content_path + '/*.jpeg'))
-		self.filename_sketch = tf.train.string_input_producer(tf.train.match_filenames_once(sketch_path + '/*.jpeg'))
-		self.filename_style = tf.train.string_input_producer(tf.train.match_filenames_once(style_path))
+		content_match = tf.train.match_filenames_once(content_path + '/*.jpeg')
+		self.num_content = tf.size(content_match)
+
+		sketch_match = tf.train.match_filenames_once(sketch_path + '/*.jpeg')
+		self.num_sketch = tf.size(sketch_match)
+
+		style_match = tf.train.match_filenames_once(style_path)
+		self.num_style = tf.size(style_match)
+
+		self.filename_content = tf.train.string_input_producer(content_match)
+		self.filename_sketch = tf.train.string_input_producer(sketch_match)
+		self.filename_style = tf.train.string_input_producer(style_match)
 
 		reader = tf.WholeFileReader()
 
@@ -71,16 +80,12 @@ class link():
 			coord = tf.train.Coordinator()
 			threads = tf.train.start_queue_runners(coord=coord)
 
-			#num_content = sess.run(tf.size(self.filename_content))
-			#num_sketch = sess.run(tf.size(self.filename_sketch))
-			#num_style = sess.run(tf.size(self.filename_style))
-
-			#print num_content, num_sketch, num_style
-
 			self.content = sess.run(content_tensor)
 			self.sketch = sess.run(sketch_tensor)
 			self.style = sess.run(style_tensor)
 
+			#print num_content, num_sketch, num_style
+			
 			coord.request_stop()
 			coord.join(threads)
 
