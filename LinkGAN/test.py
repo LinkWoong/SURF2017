@@ -43,8 +43,6 @@ class link():
 
 	def setup(self, content_path, sketch_path, style_path, global_step):
 
-		self.global_step = global_step
-
 		content_match = tf.train.match_filenames_once(content_path + '/*.jpeg')
 		self.num_content = tf.size(content_match)
 
@@ -80,14 +78,27 @@ class link():
 			coord = tf.train.Coordinator()
 			threads = tf.train.start_queue_runners(coord=coord)
 
+			#type: ndarray, shape: (512, 512, 3)
 			self.content = sess.run(content_tensor)
 			self.sketch = sess.run(sketch_tensor)
 			self.style = sess.run(style_tensor)
 
+			print self.content
+			print type(self.content)
+			print self.content.shape
+
+
 			#print num_content, num_sketch, num_style
-			
+
 			coord.request_stop()
 			coord.join(threads)
+
+		self.global_step = tf.Variable(global_step, name='global_step', trainable=False)
+		self.content_input = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.sketch_input = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.style_input = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+
+		
 
 
 ass = link()
