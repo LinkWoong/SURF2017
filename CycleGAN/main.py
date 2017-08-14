@@ -92,8 +92,6 @@ class CycleGAN():
         coord.join(threads)
 
 
-
-
     def model_setup(self):
 
         self.input_A = tf.placeholder(tf.float32, [batch_size, img_width, img_height, img_layer], name="input_A")

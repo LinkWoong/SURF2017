@@ -93,11 +93,13 @@ class link():
 
 			coord.request_stop()
 			coord.join(threads)
+		#dicts that will be fed soon
+		self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 
-		self.global_step = tf.Variable(global_step, name='global_step', trainable=False)
-		self.content_input = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-		self.sketch_input = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-		self.style_input = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
+		
 
 		
 
