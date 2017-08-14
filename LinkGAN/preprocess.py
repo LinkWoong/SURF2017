@@ -8,6 +8,9 @@ from essential import *
 from keras.models import load_model
 import pandas as pd 
 
+#This function transforms the colored image into sketch (3 channels unchanged)
+
+
 def preprocess(image_path, mod_path, content_to_sketch):
 
 	mod = load_model(mod_path)

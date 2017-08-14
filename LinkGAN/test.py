@@ -9,6 +9,7 @@ import pandas as pd
 from keras.models import load_model
 from preprocess import *
 from essential import *
+from network import *
 
 
 path = '/media/linkwong/D/1girl'
