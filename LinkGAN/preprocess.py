@@ -8,7 +8,7 @@ from essential import *
 from keras.models import load_model
 import pandas as pd 
 
-#This function transforms the colored image into sketch (3 channels unchanged)
+#This function transforms the colored image into sketch, the shape is (512, 512, 3)
 
 
 def preprocess(image_path, mod_path, content_to_sketch):
