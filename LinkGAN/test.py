@@ -98,26 +98,31 @@ class link():
 
 			#print num_content, num_sketch, num_style
 
+
 			coord.request_stop()
 			coord.join(threads)
 
 
 		#dicts that will be fed during the training
 
-		self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		#self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.fake = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
-		self.content = tf.reshape(self.content, shape=[None, img_width, img_height, img_depth])
+		#self.content = tf.reshape(self.content, shape=[None, img_width, img_height, img_depth])
 		self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
 		self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
 
 	def connect():
 
+		self.fake_gen = resnet_9_layers(self.fake)
+		self.sketch_gen = resnet_9_layers(self.sketch)
 		
+
+
 ass = link()
 ass.setup(content_path, sketch_path, style_path, global_step)
 
