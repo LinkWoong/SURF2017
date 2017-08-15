@@ -114,6 +114,8 @@ class link():
 		self.sketch = tf.reshape(self.sketch, shape=self.sketch.shape)
 		self.style = tf.reshape(self.style, shape=[img_width, img_height, img_depth])
 
+		
+
 
 
 
