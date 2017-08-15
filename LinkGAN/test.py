@@ -107,6 +107,7 @@ class link():
 		self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.fake = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
@@ -114,17 +115,9 @@ class link():
 		self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
 		self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
 
-
-
-
-
-
-
-
+	def connect():
 
 		
-
-
 ass = link()
 ass.setup(content_path, sketch_path, style_path, global_step)
 
