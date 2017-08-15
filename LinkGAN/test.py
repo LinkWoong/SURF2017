@@ -38,6 +38,18 @@ print content_path
 print sketch_path
 
 style_path = '/media/linkwong/D/1girl/2294199.png'
+style_list = [style_path]
+
+for i in style_list:
+
+	temp = resize(style_list[i])
+	if not os.path.exists('/media/linkwong/D/1girl/temp_style'):
+		os.makedirs('/media/linkwong/D/1girl/temp_style')
+	name = '/media/linkwong/D/1girl/temp_style' + '/resized_' + str(i) +'.jpeg'
+
+	cv2.imwrite(name, temp)
+style_path = '/media/linkwong/D/1girl/temp_style'
+
 
 
 class link():
@@ -84,10 +96,7 @@ class link():
 			self.sketch = sess.run(sketch_tensor)
 			self.style = sess.run(style_tensor)
 
-			print self.content
-			print type(self.content)
-			print self.content.shape
-
+			print self.content.shape,self.sketch.shape, self.style.shape
 
 			#print num_content, num_sketch, num_style
 
@@ -103,8 +112,8 @@ class link():
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
-		self.content = tf.reshape(self.content, shape=[img_width, img_height, img_depth])
-		self.sketch = tf.reshape(self.sketch, shape=[img_width, img_height, img_depth])
+		self.content = tf.reshape(self.content, shape=self.content.shape)
+		self.sketch = tf.reshape(self.sketch, shape=self.sketch.shape)
 		self.style = tf.reshape(self.style, shape=[img_width, img_height, img_depth])
 
 

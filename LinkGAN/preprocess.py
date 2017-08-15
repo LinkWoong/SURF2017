@@ -52,10 +52,15 @@ def preprocess(image_path, mod_path, content_to_sketch):
 
 			line_mat = mod.predict(light_map, batch_size=1)
 			line_mat = line_mat.transpose((3, 1, 2, 0))[0]
+			
 
 			line_mat = line_mat[0:int(height), 0:int(width), :]
+			
+
 			#show_active_img_and_save('sketches', line_mat, './' + str(i) + '.jpeg')
 			line_mat = np.amax(line_mat, 2)
+			
+
 
 			show_active_img_and_save_denoise_filter2('sketches', line_mat, new_path, i)
 			

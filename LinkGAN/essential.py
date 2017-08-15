@@ -108,10 +108,10 @@ def show_active_img_and_save_denoise_filter2(name,image,path, i):
         os.makedirs(path)
     path = path + '/sketched_' + str(i) + '.jpeg'
     cv2.imwrite(path,mat)
-
     return mat
 
 def resize_img_512_3d(img):
     zeros = np.zeros((1,3,512,512), dtype=np.float)
     zeros[0 , 0 : img.shape[0] , 0 : img.shape[1] , 0 : img.shape[2]] = img
+
     return zeros.transpose((1,2,3,0))
