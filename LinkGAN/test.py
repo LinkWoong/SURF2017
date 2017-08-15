@@ -38,18 +38,17 @@ print content_path
 print sketch_path
 
 style_path = '/media/linkwong/D/1girl/2294199.png'
-style_list = [style_path]
 
-for i in range(len(style_list)):
+def style_preprocess(style_path):
 
-	temp = resize(style_list[i])
-	if not os.path.exists('/media/linkwong/D/1girl/temp_style'):
-		os.makedirs('/media/linkwong/D/1girl/temp_style')
-	name = '/media/linkwong/D/1girl/temp_style' + '/resized_' + str(i) +'.jpeg'
+	temp = cv2.imread(style_path)
+	dim = (512, 512)
+	temp = cv2.resize(temp,(512, 512), interpolation=cv2.INTER_AREA)
+	cv2.imwrite(style_path, temp)
 
-	cv2.imwrite(name, temp)
-style_path = '/media/linkwong/D/1girl/temp_style'
+	return style_path
 
+style_preprocess(style_path)
 
 class link():
 
