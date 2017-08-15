@@ -77,7 +77,7 @@ class link():
 
 		content_tensor = tf.image.decode_jpeg(content_image)
 		sketch_tensor = tf.image.decode_jpeg(sketch_image)
-		style_tensor = tf.image.decode_png(style_image) 
+		style_tensor = tf.image.decode_png(style_image)
 
 
 		init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
@@ -104,17 +104,19 @@ class link():
 
 		#dicts that will be fed during the training
 
-		self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[img_width, img_height, img_depth])
-		self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[img_width, img_height, img_depth])
-		self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[img_width, img_height, img_depth])
+		self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
-		self.content = tf.reshape(self.content, shape=self.content.shape)
-		self.sketch = tf.reshape(self.sketch, shape=self.sketch.shape)
-		self.style = tf.reshape(self.style, shape=[img_width, img_height, img_depth])
+		self.content = tf.reshape(self.content, shape=[None, img_width, img_height, img_depth])
+		self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
+		self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
 
-		
+
+
+
 
 
 
