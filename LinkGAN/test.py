@@ -40,7 +40,7 @@ print sketch_path
 style_path = '/media/linkwong/D/1girl/2294199.png'
 style_list = [style_path]
 
-for i in style_list:
+for i in range(len(style_list)):
 
 	temp = resize(style_list[i])
 	if not os.path.exists('/media/linkwong/D/1girl/temp_style'):
@@ -49,7 +49,6 @@ for i in style_list:
 
 	cv2.imwrite(name, temp)
 style_path = '/media/linkwong/D/1girl/temp_style'
-
 
 
 class link():
