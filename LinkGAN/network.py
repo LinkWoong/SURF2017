@@ -67,7 +67,6 @@ def deconv2d(inputconv, output_dim, filter_width, filter_height, stride_width, s
 
 
 
-
 def resnet(inputconv, dim):
 
 	inputconv_pad_1 = tf.pad(inputconv,[[0, 0], [1, 1], [1, 1], [0, 0]], "REFLECT")
