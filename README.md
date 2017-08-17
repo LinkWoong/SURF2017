@@ -17,19 +17,15 @@ Our goal is to implement the neural style transfer by using [cycleGAN](https://a
 
 Despite so many existing and well-performed deep learning frameworks (like caffe, chainer etc), our group chooses **Tensorflow** for its reliability and adaptability. 
 
-### Edge detection  
-
-Edge detection based on **Kears** deep learning framework has been implemented, and test image is  
-<br>
-<img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/test.jpg" height=512 width=49% alt="Input test image"> <img src="https://github.com/LinkWoong/SURF2017/blob/master/Keras-Implemented-Edge-Detection/result2.jpg" height=512 width=49% alt="Output test image">
-
-<br>
 There are more results have released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
 
 ### VGG-19 Pretrained Very Deep Network
 
 This file is essential for the network, the download link could be viewed from [here](https://doc-0g-bk-docs.googleusercontent.com/docs/securesc/2pupit1rkqf499jf32djila3bu315tct/gf720g6apmvbsffanaqje3urb3gae67s/1499508000000/13951467387256278872/05183618345913443837/0Bz7KyqmuGsilZ2RVeVhKY0FyRmc?e=download).The VGG19 is a pretrained very deep ConvNets that could be used directly. Similar pretrained models such as Resnet, VGG16 will be tested.
 
+### Resnet
+
+A profound and very laconic architecture, the origin paper could be viewed [here](https://arxiv.org/abs/1512.03385)).
 ## 3. Some trials  
 -------------------------------------------------
 + The first trial is using traditional neural style transfer.
