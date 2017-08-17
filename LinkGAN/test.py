@@ -106,6 +106,7 @@ class link():
 
 			#type: ndarray, shape: (512, 512, 3)
 
+			#load each image into list
 			for i in range(max_images):
 				image_tensor = sess.run(self.content_read)
 				self.content_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
@@ -118,7 +119,6 @@ class link():
 				image_tensor = sess.run(self.style_read)
 				self.style_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
 
-			
 
 			self.num_content = sess.run(tf.size(content_match))
 			self.num_sketch = sess.run(tf.size(sketch_match))
@@ -127,19 +127,15 @@ class link():
 			coord.request_stop()
 			coord.join(threads)
 
-
-
-		self.fake = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
-		self.input_sketch = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
-		self.input_content = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
-		self.input_style = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
+	def connect(self):
 
+		self.conv_content = resnet_9_layers(self.content_input)
 		
 
 
 ass = link()
 ass.setup(content_path, sketch_path, style_path, global_step)
+ass.connect()
 
