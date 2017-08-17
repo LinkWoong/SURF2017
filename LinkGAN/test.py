@@ -86,11 +86,15 @@ class link():
 
 		#decode method depends on your image type
 
-		content_read = tf.image.decode_jpeg(content_image)
-		sketch_read = tf.image.decode_jpeg(sketch_image)
-		style_read = tf.image.decode_png(style_image)
+		self.content_read = tf.image.decode_jpeg(content_image)
+		self.sketch_read = tf.image.decode_jpeg(sketch_image)
+		self.style_read = tf.image.decode_png(style_image)
 
+		self.content_input = np.zeros((max_images, img_width, img_height, img_depth))
+		self.sketch_input = np.zeros((max_images, img_width, img_height, img_depth))
+		self.style_input = np.zeros((1, img_width, img_height, img_depth))
 
+		
 		init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
 
 		with tf.Session() as sess:
@@ -101,9 +105,20 @@ class link():
 			threads = tf.train.start_queue_runners(coord=coord)
 
 			#type: ndarray, shape: (512, 512, 3)
-			self.content = sess.run(content_read)
-			self.sketch = sess.run(sketch_read)
-			self.style = sess.run(style_read)
+
+			for i in range(max_images):
+				image_tensor = sess.run(self.content_read)
+				self.content_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
+
+			for i in range(max_images):
+				image_tensor = sess.run(self.sketch_read)
+				self.sketch_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
+
+			for i in range(1):
+				image_tensor = sess.run(self.style_read)
+				self.style_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
+
+			print len(self.content_input)
 
 			self.num_content = sess.run(tf.size(content_match))
 			self.num_sketch = sess.run(tf.size(sketch_match))
@@ -113,18 +128,10 @@ class link():
 			coord.join(threads)
 
 
-		#dicts that will be fed during the training
 
-		#self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-		#self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-		#self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.fake = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
-
-		#self.content = tf.reshape(self.content, shape=[None, img_width, img_height, img_depth])
-		#self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
-		#self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
 
 		self.input_sketch = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
 		self.input_content = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
