@@ -131,7 +131,10 @@ class link():
 
 	def connect(self):
 
-		self.conv_content = resnet_9_layers(self.content_input)
+		self.conv_content_1 = resnet_9_layers(self.content_input)
+		self.conv_content_2 = resnet_9_layers(self.conv_content_1)
+		self.conv_content_3 = resnet_9_layers(self.conv_content_2)
+		
 		
 
 
