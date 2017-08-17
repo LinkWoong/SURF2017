@@ -105,8 +105,7 @@ class link():
 
 			print self.content.shape,self.sketch.shape, self.style.shape
 
-			#print num_content, num_sketch, num_style
-
+			print num_content, num_sketch, num_style
 
 			coord.request_stop()
 			coord.join(threads)
@@ -129,10 +128,6 @@ class link():
 		self.input_content = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
 		self.input_style = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
 
-	def connect():
-
-		self.fake_gen = resnet_9_layers(self.fake)
-		self.sketch_gen = resnet_9_layers(self.sketch)
 		
 
 
