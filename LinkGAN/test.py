@@ -25,6 +25,7 @@ batch_size = 1
 pooling = 10
 epochs = 100
 global_step = 0
+max_images = 3
 
 content_to_sketch = True
 log_device_placement = True
@@ -115,6 +116,13 @@ class link():
 		#self.content = tf.reshape(self.content, shape=[None, img_width, img_height, img_depth])
 		self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
 		self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
+
+		self.input_sketch = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
+		self.input_content = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
+		self.input_style = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
+
+		
+
 
 	def connect():
 
