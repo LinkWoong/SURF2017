@@ -54,6 +54,14 @@ style_preprocess(style_path)
 class link():
 
 	def setup(self, content_path, sketch_path, style_path, global_step):
+		'''
+		Arguments:
+
+		content_path: the path of content images
+		sketch_path: the path of sketch images
+		style_path: the path of style image
+		global_step: the global step
+		'''
 
 		content_match = tf.train.match_filenames_once(content_path + '/*.jpeg')
 		self.num_content = tf.size(content_match)
@@ -107,8 +115,8 @@ class link():
 		#dicts that will be fed during the training
 
 		#self.content_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-		self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
-		self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		#self.sketch_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
+		#self.style_input_dict = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 		self.fake = tf.placeholder(dtype=tf.float32, shape=[None, img_width, img_height, img_depth])
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
