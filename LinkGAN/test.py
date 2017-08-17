@@ -33,10 +33,12 @@ output_partition_graphs = True
 start_train = True
 start_test = True
 
-content_path, sketch_path = preprocess(path, mod_path, content_to_sketch)
+content_path = '/media/linkwong/D/1girl/temp'
+sketch_path = content_path + '/sketch'
 
-print content_path
-print sketch_path
+if not os.path.exists(content_path):
+	content_path, sketch_path = preprocess(path, mod_path, content_to_sketch)
+
 
 style_path = '/media/linkwong/D/1girl/2294199.png'
 
@@ -99,11 +101,9 @@ class link():
 			threads = tf.train.start_queue_runners(coord=coord)
 
 			#type: ndarray, shape: (512, 512, 3)
-			self.content = sess.run([content_read])
-			self.sketch = sess.run([sketch_read])
-			self.style = sess.run([style_read])
-
-			print self.content.shape,self.sketch.shape, self.style.shape
+			self.content = sess.run(content_read)
+			self.sketch = sess.run(sketch_read)
+			self.style = sess.run(style_read)
 
 			self.num_content = sess.run(tf.size(content_match))
 			self.num_sketch = sess.run(tf.size(sketch_match))
