@@ -16,14 +16,12 @@ def instance_norm(x):
 
 	epsilon = 1e-5
 	mean, var = tf.nn.moments(x, [1, 2], keep_dims=True)
-	tf.get_variable_scope().reuse = True
-	scale = tf.get_variable('scale2', [x.get_shape()[-1]], initializer=tf.truncated_normal_initializer(mean=1.0, stddev=0.02))
+
+	scale = tf.get_variable('scale', [x.get_shape()[-1]], initializer=tf.truncated_normal_initializer(mean=1.0, stddev=0.02))
 	offset = tf.get_variable('offset', [x.get_shape()[-1]], initializer=tf.constant_initializer(0.0))
 
 	dive = tf.cast(tf.div(x - mean, tf.sqrt(var + epsilon)), tf.float32)
-
-	print dive.dtype
-
+	
 	output = scale * dive  + offset
 
 	return output
