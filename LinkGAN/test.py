@@ -76,9 +76,9 @@ class link():
 
 		#decode method depends on your image type
 
-		content_tensor = tf.image.decode_jpeg(content_image)
-		sketch_tensor = tf.image.decode_jpeg(sketch_image)
-		style_tensor = tf.image.decode_png(style_image)
+		content_read = tf.image.decode_jpeg(content_image)
+		sketch_read = tf.image.decode_jpeg(sketch_image)
+		style_read = tf.image.decode_png(style_image)
 
 
 		init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
@@ -91,9 +91,9 @@ class link():
 			threads = tf.train.start_queue_runners(coord=coord)
 
 			#type: ndarray, shape: (512, 512, 3)
-			self.content = sess.run(content_tensor)
-			self.sketch = sess.run(sketch_tensor)
-			self.style = sess.run(style_tensor)
+			self.content = sess.run(content_read)
+			self.sketch = sess.run(sketch_read)
+			self.style = sess.run(style_read)
 
 			print self.content.shape,self.sketch.shape, self.style.shape
 
