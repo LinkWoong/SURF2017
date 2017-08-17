@@ -64,13 +64,13 @@ class link():
 		'''
 
 		content_match = tf.train.match_filenames_once(content_path + '/*.jpeg')
-		self.num_content = tf.size(content_match)
+		#self.num_content = tf.size(content_match)
 
 		sketch_match = tf.train.match_filenames_once(sketch_path + '/*.jpeg')
-		self.num_sketch = tf.size(sketch_match)
+		#self.num_sketch = tf.size(sketch_match)
 
 		style_match = tf.train.match_filenames_once(style_path)
-		self.num_style = tf.size(style_match)
+		#self.num_style = tf.size(style_match)
 
 		self.filename_content = tf.train.string_input_producer(content_match)
 		self.filename_sketch = tf.train.string_input_producer(sketch_match)
@@ -99,13 +99,15 @@ class link():
 			threads = tf.train.start_queue_runners(coord=coord)
 
 			#type: ndarray, shape: (512, 512, 3)
-			self.content = sess.run(content_read)
-			self.sketch = sess.run(sketch_read)
-			self.style = sess.run(style_read)
+			self.content = sess.run([content_read])
+			self.sketch = sess.run([sketch_read])
+			self.style = sess.run([style_read])
 
 			print self.content.shape,self.sketch.shape, self.style.shape
 
-			print num_content, num_sketch, num_style
+			self.num_content = sess.run(tf.size(content_match))
+			self.num_sketch = sess.run(tf.size(sketch_match))
+			self.num_style = sess.run(tf.size(style_match))
 
 			coord.request_stop()
 			coord.join(threads)
@@ -121,8 +123,8 @@ class link():
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
 		#self.content = tf.reshape(self.content, shape=[None, img_width, img_height, img_depth])
-		self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
-		self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
+		#self.sketch = tf.reshape(self.sketch, shape=[None, img_width, img_height, 1])
+		#self.style = tf.reshape(self.style, shape=[None, img_width, img_height, img_depth])
 
 		self.input_sketch = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
 		self.input_content = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
