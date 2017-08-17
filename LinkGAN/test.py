@@ -121,9 +121,6 @@ class link():
 		self.input_content = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
 		self.input_style = np.zeros((max_images, batch_size, img_width, img_height, img_depth))
 
-		
-
-
 	def connect():
 
 		self.fake_gen = resnet_9_layers(self.fake)
