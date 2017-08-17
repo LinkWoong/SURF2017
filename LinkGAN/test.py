@@ -94,7 +94,7 @@ class link():
 		self.sketch_input = np.zeros((max_images, img_width, img_height, img_depth))
 		self.style_input = np.zeros((1, img_width, img_height, img_depth))
 
-		
+
 		init = ([tf.global_variables_initializer(), tf.local_variables_initializer()])
 
 		with tf.Session() as sess:
@@ -112,13 +112,13 @@ class link():
 
 			for i in range(max_images):
 				image_tensor = sess.run(self.sketch_read)
-				self.sketch_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
+				self.sketch_input[i] = image_tensor.reshape((batch_size, img_width, img_height, 1))
 
 			for i in range(1):
 				image_tensor = sess.run(self.style_read)
 				self.style_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
 
-			print len(self.content_input)
+			
 
 			self.num_content = sess.run(tf.size(content_match))
 			self.num_sketch = sess.run(tf.size(sketch_match))
