@@ -109,16 +109,15 @@ class link():
 			#load each image into list
 			for i in range(max_images):
 				image_tensor = sess.run(self.content_read)
-				self.content_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
+				self.content_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth)).astype(np.float32)
 
 			for i in range(max_images):
 				image_tensor = sess.run(self.sketch_read)
-				self.sketch_input[i] = image_tensor.reshape((batch_size, img_width, img_height, 1))
+				self.sketch_input[i] = image_tensor.reshape((batch_size, img_width, img_height, 1)).astype(np.float32)
 
 			for i in range(1):
 				image_tensor = sess.run(self.style_read)
-				self.style_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth))
-
+				self.style_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth)).astype(np.float32)
 
 			self.num_content = sess.run(tf.size(content_match))
 			self.num_sketch = sess.run(tf.size(sketch_match))
@@ -126,13 +125,22 @@ class link():
 
 			coord.request_stop()
 			coord.join(threads)
+		self.content_input_tensor = tf.stack(self.content_input)
+		tf.InteractiveSession()
+		self.content_input_tensor_2 = tf.cast(self.content_input_tensor, tf.float32)
+
+		print self.content_input_tensor_2
+		
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
 
 	def connect(self):
 
-		self.content_conv_1 = resnet_9_layers(self.content_input)	
-		
+		self.content_conv_1 = resnet_9_layers(self.content_input_tensor_2)
+		print self.content_conv_1.shape
+		with tf.Session() as sess:
+
+			print sess.run(tf.equal(self.content_conv_1, self.content_input))
 
 
 ass = link()

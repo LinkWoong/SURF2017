@@ -12,23 +12,25 @@ stride_width = 1
 stride_height = 1
 
 
+
 def instance_norm(x):
 
 	epsilon = 1e-5
 	mean, var = tf.nn.moments(x, [1, 2], keep_dims=True)
 
-	with tf.variable_scope('') as scope:
-		scale = tf.get_variable('scale', [x.get_shape()[-1]], initializer=tf.truncated_normal_initializer(mean=1.0, stddev=0.02))
+	ass = tf.divide(x-mean, tf.sqrt(var+epsilon))
+	ass = tf.cast(ass, tf.float32)
 
+	with tf.variable_scope("instance_norm"):
 
-	
-	offset = tf.get_variable('offset', [x.get_shape()[-1]], initializer=tf.constant_initializer(0.0))
+		scale = tf.get_variable('scale2',[x.get_shape()[-1]], initializer=tf.truncated_normal_initializer(mean=1.0, stddev=0.02))
 
-	dive = tf.cast(tf.div(x - mean, tf.sqrt(var + epsilon)), tf.float32)
-	
-	output = scale * dive  + offset
+		offset = tf.get_variable('offset',[x.get_shape()[-1]], initializer=tf.constant_initializer(0.0))
 
-	return output
+		out = scale*ass + offset
+
+		return out
+
 
 def leakyrelu(x, leaky=0.2):
 
@@ -37,7 +39,7 @@ def leakyrelu(x, leaky=0.2):
 
 	return f1 * x + f2 * abs(x)
 
-def conv2d(inputconv, output_dim, filter_width, filter_height, stride_width, stride_height, stddev, padding='VALID', do_norm=True, do_relu=True, relufac=0):
+def conv2d(inputconv, output_dim, filter_width, filter_height, stride_width, stride_height, stddev, padding='VALID', do_norm=False, do_relu=True, relufac=0):
 
 	conv = tf.contrib.layers.conv2d(inputconv, output_dim, filter_width, stride_width, padding, activation_fn=None, 
 		weights_initializer=tf.truncated_normal_initializer(stddev=stddev), biases_initializer=tf.constant_initializer(0.0))
@@ -54,10 +56,10 @@ def conv2d(inputconv, output_dim, filter_width, filter_height, stride_width, str
 
 	return conv
 
-def deconv2d(inputconv, output_dim, filter_width, filter_height, stride_width, stride_height, stddev, padding='VALID', do_norm=True, do_relu=True, relufac=0):
+def deconv2d(inputconv, output_dim, filter_width, filter_height, stride_width, stride_height, stddev, padding='VALID', do_norm=False, do_relu=True, relufac=0):
 
 	deconv = tf.contrib.layers.conv2d_transpose(inputconv, output_dim, [filter_height, filter_width], [stride_height, stride_width], padding, activation_fn=None,
-		weights_initializer=tf.truncated_normal_initializer(stddev=stddev), biases_initializer=tf.constant_intializer(0.0))
+		weights_initializer=tf.truncated_normal_initializer(stddev=stddev))
 
 	if do_norm:
 
@@ -76,9 +78,9 @@ def deconv2d(inputconv, output_dim, filter_width, filter_height, stride_width, s
 def resnet(inputconv, dim):
 
 	inputconv_pad_1 = tf.pad(inputconv,[[0, 0], [1, 1], [1, 1], [0, 0]], "REFLECT")
-	inputconv_conv = conv2d(inputconv_pad, dim, 3, 3, 1, 1, 0.02, 'VALID')
+	inputconv_conv = conv2d(inputconv_pad_1, dim, 3, 3, 1, 1, 0.02, 'VALID')
 	inputconv_pad_2 = tf.pad(inputconv_conv, [[0, 0], [1, 1], [1, 1], [0, 0]], "REFLECT")
-	output = conv2d(inputconv_pad_2, 3, 3, 1, 1, 0.02, 'VALID', do_relu=False)
+	output = conv2d(inputconv_pad_2, dim, 3, 3, 1, 1, 0.02, 'VALID', do_relu=False)
 
 	return tf.nn.relu(output + inputconv)
 
