@@ -119,17 +119,18 @@ class link():
 				image_tensor = sess.run(self.style_read)
 				self.style_input[i] = image_tensor.reshape((batch_size, img_width, img_height, img_depth)).astype(np.float32)
 
+			self.content_input_tensor = tf.stack(self.content_input)
+			
+			self.content_input_tensor_2 = tf.cast(self.content_input_tensor, tf.float32)
+
+			print self.content_input_tensor_2
 			self.num_content = sess.run(tf.size(content_match))
 			self.num_sketch = sess.run(tf.size(sketch_match))
 			self.num_style = sess.run(tf.size(style_match))
 
 			coord.request_stop()
 			coord.join(threads)
-		self.content_input_tensor = tf.stack(self.content_input)
-		tf.InteractiveSession()
-		self.content_input_tensor_2 = tf.cast(self.content_input_tensor, tf.float32)
 
-		print self.content_input_tensor_2
 		
 
 		self.global_step = tf.Variable(global_step, dtype=tf.float32, trainable=False)
