@@ -17,7 +17,11 @@ def instance_norm(x):
 	epsilon = 1e-5
 	mean, var = tf.nn.moments(x, [1, 2], keep_dims=True)
 
-	scale = tf.get_variable('scale', [x.get_shape()[-1]], initializer=tf.truncated_normal_initializer(mean=1.0, stddev=0.02))
+	with tf.variable_scope('') as scope:
+		scale = tf.get_variable('scale', [x.get_shape()[-1]], initializer=tf.truncated_normal_initializer(mean=1.0, stddev=0.02))
+
+
+	
 	offset = tf.get_variable('offset', [x.get_shape()[-1]], initializer=tf.constant_initializer(0.0))
 
 	dive = tf.cast(tf.div(x - mean, tf.sqrt(var + epsilon)), tf.float32)
@@ -103,7 +107,7 @@ def resnet_6_layers(inputconv):
 	return output
 
 def resnet_9_layers(inputconv):
-
+	print inputconv.shape 
 	inputconv_pad = tf.pad(inputconv, [[0, 0], [3, 3], [3, 3], [0, 0]], "REFLECT")
 	conv_1 = conv2d(inputconv_pad, 32, 7 ,7, 1, 1, 0.02)
 	conv_2 = conv2d(conv_1, 32*2, 7, 7, 2, 2, 0.02, 'SAME')
