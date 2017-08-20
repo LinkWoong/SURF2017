@@ -29,4 +29,4 @@ A profound and very laconic architecture, the origin paper could be viewed [here
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/acGAN-Implementation/school/new_school.jpg" height=500 width=98% alt="Output test image">
 <br>
   
-+ There are more results have released by using Keras framework, please see this [link]http://stellarcoder.com/surf/anime_test_2/) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
++ There are more results have released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test_2/) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
