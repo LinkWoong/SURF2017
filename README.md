@@ -19,7 +19,7 @@ This file is essential for the network, the download link could be viewed from [
 
 ### Resnet
 
-A profound and very laconic architecture, the origin paper could be viewed [here](https://arxiv.org/abs/1512.03385)).
+A profound and very laconic architecture, the origin paper could be viewed [here](https://arxiv.org/abs/1512.03385).
 ## 3. Some trials  
 -------------------------------------------------
 + The first trial is using traditional neural style transfer.
