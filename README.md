@@ -26,8 +26,6 @@ Completed image results are listed below. These results are obtained from cGAN a
 
 <br>
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/result1.jpg" height=480 width=1056 alt="Input test image"> 
-<br>
-<br>
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/result3.jpg" height=480 width=1056 alt="Output test image">
 <br>
 
