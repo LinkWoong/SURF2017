@@ -30,3 +30,7 @@ A profound and very laconic architecture, the origin paper could be viewed [here
 <br>
   
 + There are more results have released by using Keras framework, please see this [link](http://stellarcoder.com/surf/anime_test_2/) created by DexHunter. The network is trained on Professor Flemming 's workstation with 4 Titan X GPUs, which cost 2 weeks to implement.
+## 3. Results
+Completed image results are listed below. These results are obtained from cGAN and cycleGAN with small training epochs. They will be more accurate if trained sufficiently. 
+
+
