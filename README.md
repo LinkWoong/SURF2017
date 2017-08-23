@@ -22,9 +22,9 @@ This file is essential for the network, the download link could be viewed from [
 A profound and very laconic architecture, the origin paper could be viewed [here](https://arxiv.org/abs/1512.03385).
 
 ## 3. Results
-Completed image results are listed below. These results are obtained from cGAN and cycleGAN with small training epochs. They will be more accurate if trained sufficiently. 
+Completed image results are listed below. These results are obtained from cGAN and cycleGAN with small training epochs. They will be more accurate if trained sufficiently.  
 
-<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/results/result1.jpg" height=480 width=1056>
+<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/results/result1.jpg" width=1056 height=480 alt="result1">
 
 
 
