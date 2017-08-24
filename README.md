@@ -1,8 +1,8 @@
 # SURF2017
------------------
+
 This is a project of XJTLU 2017 Summer Undergraduate Research Fellowship, it aims at designing a generative adversarial network to implement style transfer from a style image to content image. Related literature could be viewed from [Wiki](https://github.com/LinkWoong/SURF2017/wiki)  
 ## 1. Overview  
------------------
+
 **Neural Style Transfer** is one of the cutting-edge topic in deep learning field. It aims at transfer the style of an image to content image, which could be sketch or colored. 
 
 Our goal is to implement the neural style transfer by using [cycleGAN](https://arxiv.org/abs/1705.09966). At the same time, we also want to take one step further by using [CAN](https://arxiv.org/abs/1706.07068), which could generate image itself after a well-feed training process.
@@ -25,6 +25,7 @@ A profound and very laconic architecture, the origin paper could be viewed [here
 Completed image results are listed below. These results are obtained from cGAN and cycleGAN with small training epochs. They will be more accurate if trained sufficiently.  
 
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/results/result1.jpg" width=1056 height=480 alt="result1">
+<img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/results/result3.jpg" width=1056 height=480 alt="result1">
 
 
 
