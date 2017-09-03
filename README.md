@@ -27,7 +27,6 @@ Completed image results are listed below. These results are obtained from cGAN a
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/results/result1.jpg" width=1056 height=480 alt="result1">
 <img src="https://raw.githubusercontent.com/LinkWoong/SURF2017/master/results/result3.jpg" width=1056 height=480 alt="result1">
 
-
-
+For poster, please see this [link](https://github.com/LinkWoong/SURF2017/blob/master/poster.pdf). Codes are going to be open-sourced soon.
 
 
